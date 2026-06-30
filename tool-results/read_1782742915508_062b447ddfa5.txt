@@ -1,0 +1,768 @@
+     1→     1→"use client";
+     2→     2→
+     3→     3→import * as React from "react";
+     4→     4→import Link from "next/link";
+     5→     5→import { motion } from "framer-motion";
+     6→     6→import { toast } from "sonner";
+     7→     7→import {
+     8→     8→  Sparkles,
+     9→     9→  HeartHandshake,
+    10→    10→  Users,
+    11→    11→  Award,
+    12→    12→  ArrowRight,
+    13→    13→  ArrowDown,
+    14→    14→  HandHeart,
+    15→    15→  Clock,
+    16→    16→  MapPin,
+    17→    17→  Loader2,
+    18→    18→  Send,
+    19→    19→  GraduationCap,
+    20→    20→  Code2,
+    21→    21→  Briefcase,
+    22→    22→  HelpCircle,
+    23→    23→  CheckCircle2,
+    24→    24→  Heart,
+    25→    25→  type LucideIcon,
+    26→    26→} from "lucide-react";
+    27→    27→
+    28→    28→import { PageHero } from "@/components/site/page-hero";
+    29→    29→import { SectionHeading } from "@/components/site/section-heading";
+    30→    30→import {
+    31→    31→  Reveal,
+    32→    32→  Stagger,
+    33→    33→  StaggerItem,
+    34→    34→} from "@/components/motion/reveal";
+    35→    35→import { AnimatedCounter } from "@/components/motion/animated-counter";
+    36→    36→import { NodeNetwork } from "@/components/site/svg-decorations";
+    37→    37→
+    38→    38→import {
+    39→    39→  Card,
+    40→    40→  CardContent,
+    41→    41→  CardDescription,
+    42→    42→  CardHeader,
+    43→    43→  CardTitle,
+    44→    44→} from "@/components/ui/card";
+    45→    45→import { Button } from "@/components/ui/button";
+    46→    46→import { Badge } from "@/components/ui/badge";
+    47→    47→import { Input } from "@/components/ui/input";
+    48→    48→import { Textarea } from "@/components/ui/textarea";
+    49→    49→import { Label } from "@/components/ui/label";
+    50→    50→import {
+    51→    51→  Select,
+    52→    52→  SelectContent,
+    53→    53→  SelectItem,
+    54→    54→  SelectTrigger,
+    55→    55→  SelectValue,
+    56→    56→} from "@/components/ui/select";
+    57→    57→import {
+    58→    58→  Accordion,
+    59→    59→  AccordionContent,
+    60→    60→  AccordionItem,
+    61→    61→  AccordionTrigger,
+    62→    62→} from "@/components/ui/accordion";
+    63→    63→import { Separator } from "@/components/ui/separator";
+    64→    64→
+    65→    65→import { volunteerRoles, volunteerFaqs, impactMetrics } from "@/lib/data";
+    66→    66→
+    67→    67→/* -------------------------------------------------------------------------- */
+    68→    68→/*  Helpers                                                                   */
+    69→    69→/* -------------------------------------------------------------------------- */
+    70→    70→
+    71→    71→const benefitCards: {
+    72→    72→  icon: LucideIcon;
+    73→    73→  title: string;
+    74→    74→  description: string;
+    75→    75→  color: "blue" | "purple" | "green";
+    76→    76→}[] = [
+    77→    77→  {
+    78→    78→    icon: HeartHandshake,
+    79→    79→    title: "Make Real Impact",
+    80→    80→    description:
+    81→    81→      "Mentor a learner, build a tool, or run a drive — see your time translate directly into changed lives and new careers.",
+    82→    82→    color: "blue",
+    83→    83→  },
+    84→    84→  {
+    85→    85→    icon: Sparkles,
+    86→    86→    title: "Grow Your Skills",
+    87→    87→    description:
+    88→    88→      "Sharpen your teaching, leadership and product skills by working on real projects with a diverse, mission-driven team.",
+    89→    89→    color: "purple",
+    90→    90→  },
+    91→    91→  {
+    92→    92→    icon: Users,
+    93→    93→    title: "Join a Community",
+    94→    94→    description:
+    95→    95→      "Become part of a 320+ strong network of mentors, engineers, organisers and changemakers across 9 Indian states.",
+    96→    96→    color: "green",
+    97→    97→  },
+    98→    98→  {
+    99→    99→    icon: Award,
+   100→   100→    title: "Get Certified",
+   101→   101→    description:
+   102→   102→      "Active volunteers earn an Atom Foundation volunteer certificate and a letter of appreciation after each cohort cycle.",
+   103→   103→    color: "blue",
+   104→   104→  },
+   105→   105→];
+   106→   106→
+   107→   107→const colorMap: Record<
+   108→   108→  "blue" | "purple" | "green",
+   109→   109→  {
+   110→   110→    text: string;
+   111→   111→    bg: string;
+   112→   112→    border: string;
+   113→   113→    softBorder: string;
+   114→   114→    gradient: string;
+   115→   115→    solid: string;
+   116→   116→  }
+   117→   117→> = {
+   118→   118→  blue: {
+   119→   119→    text: "text-brand-blue",
+   120→   120→    bg: "bg-brand-blue/10",
+   121→   121→    border: "border-brand-blue/40",
+   122→   122→    softBorder: "border-brand-blue/30",
+   123→   123→    gradient: "from-brand-blue/15 to-brand-blue/5",
+   124→   124→    solid: "bg-brand-blue text-brand-blue-foreground",
+   125→   125→  },
+   126→   126→  purple: {
+   127→   127→    text: "text-brand-purple",
+   128→   128→    bg: "bg-brand-purple/10",
+   129→   129→    border: "border-brand-purple/40",
+   130→   130→    softBorder: "border-brand-purple/30",
+   131→   131→    gradient: "from-brand-purple/15 to-brand-purple/5",
+   132→   132→    solid: "bg-brand-purple text-brand-purple-foreground",
+   133→   133→  },
+   134→   134→  green: {
+   135→   135→    text: "text-brand-green",
+   136→   136→    bg: "bg-brand-green/10",
+   137→   137→    border: "border-brand-green/40",
+   138→   138→    softBorder: "border-brand-green/30",
+   139→   139→    gradient: "from-brand-green/15 to-brand-green/5",
+   140→   140→    solid: "bg-brand-green text-brand-green-foreground",
+   141→   141→  },
+   142→   142→};
+   143→   143→
+   144→   144→/** Volunteer impact stats — reuse impactMetrics values */
+   145→   145→const volunteerStats = [
+   146→   146→  { ...impactMetrics[3] }, // Active Volunteers 320+
+   147→   147→  { ...impactMetrics[0] }, // Students Trained 12,450+
+   148→   148→  { ...impactMetrics[4] }, // Training Hours 86,000+
+   149→   149→];
+   150→   150→
+   151→   151→const roleOptions = [
+   152→   152→  ...volunteerRoles.map((r) => r.title),
+   153→   153→  "Other",
+   154→   154→] as const;
+   155→   155→
+   156→   156→const availabilityOptions = [
+   157→   157→  "Weekday evenings",
+   158→   158→  "Weekends",
+   159→   159→  "Flexible",
+   160→   160→] as const;
+   161→   161→
+   162→   162→/* -------------------------------------------------------------------------- */
+   163→   163→/*  Volunteer page                                                            */
+   164→   164→/* -------------------------------------------------------------------------- */
+   165→   165→
+   166→   166→export default function VolunteerPage() {
+   167→   167→  const [form, setForm] = React.useState({
+   168→   168→    name: "",
+   169→   169→    email: "",
+   170→   170→    phone: "",
+   171→   171→    role: "",
+   172→   172→    location: "",
+   173→   173→    skills: "",
+   174→   174→    availability: "",
+   175→   175→    motivation: "",
+   176→   176→  });
+   177→   177→  const [submitting, setSubmitting] = React.useState(false);
+   178→   178→
+   179→   179→  const scrollTo = (id: string) => {
+   180→   180→    const el = document.getElementById(id);
+   181→   181→    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+   182→   182→  };
+   183→   183→
+   184→   184→  const handleRoleApply = (roleTitle: string) => {
+   185→   185→    setForm((f) => ({ ...f, role: roleTitle }));
+   186→   186→    scrollTo("apply");
+   187→   187→    toast.info(`Role pre-selected: ${roleTitle}`, {
+   188→   188→      description: "Just fill in your details below and submit.",
+   189→   189→    });
+   190→   190→  };
+   191→   191→
+   192→   192→  const handleChange = (
+   193→   193→    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+   194→   194→  ) => {
+   195→   195→    const { name, value } = e.target;
+   196→   196→    setForm((f) => ({ ...f, [name]: value }));
+   197→   197→  };
+   198→   198→
+   199→   199→  const handleSubmit = async (e: React.FormEvent) => {
+   200→   200→    e.preventDefault();
+   201→   201→    if (!form.name || !form.email || !form.phone || !form.role) {
+   202→   202→      toast.error("Please fill your name, email, phone and role.");
+   203→   203→      return;
+   204→   204→    }
+   205→   205→    setSubmitting(true);
+   206→   206→    try {
+   207→   207→      const res = await fetch("/api/volunteer", {
+   208→   208→        method: "POST",
+   209→   209→        headers: { "Content-Type": "application/json" },
+   210→   210→        body: JSON.stringify(form),
+   211→   211→      });
+   212→   212→      const data = await res.json().catch(() => ({}));
+   213→   213→      if (!res.ok || !data.ok) {
+   214→   214→        throw new Error(data?.error || "Submission failed.");
+   215→   215→      }
+   216→   216→      toast.success("Application received — thank you!", {
+   217→   217→        description:
+   218→   218→          "Our volunteer coordinator will reach out within 2–3 working days.",
+   219→   219→      });
+   220→   220→      setForm({
+   221→   221→        name: "",
+   222→   222→        email: "",
+   223→   223→        phone: "",
+   224→   224→        role: "",
+   225→   225→        location: "",
+   226→   226→        skills: "",
+   227→   227→        availability: "",
+   228→   228→        motivation: "",
+   229→   229→      });
+   230→   230→      scrollTo("apply");
+   231→   231→    } catch (err) {
+   232→   232→      toast.error("Couldn't submit your application", {
+   233→   233→        description:
+   234→   234→          err instanceof Error ? err.message : "Please try again shortly.",
+   235→   235→      });
+   236→   236→    } finally {
+   237→   237→      setSubmitting(false);
+   238→   238→    }
+   239→   239→  };
+   240→   240→
+   241→   241→  return (
+   242→   242→    <>
+   243→   243→      {/* --------------------------------------------------------------- Hero */}
+   244→   244→      <PageHero
+   245→   245→        eyebrow="Volunteer"
+   246→   246→        title={
+   247→   247→          <>
+   248→   248→            Give your time, <span className="text-gradient-brand">change a future</span>
+   249→   249→          </>
+   250→   250→        }
+   251→   251→        description="Mentor a learner, build tools that scale, run a community drive — whatever your skill, there is a place for you at Atom Foundation."
+   252→   252→        breadcrumbs={[
+   253→   253→          { label: "Home", href: "/" },
+   254→   254→          { label: "Volunteer" },
+   255→   255→        ]}
+   256→   256→      >
+   257→   257→        <div className="flex flex-wrap items-center gap-3">
+   258→   258→          <Button
+   259→   259→            size="lg"
+   260→   260→            className="bg-gradient-brand text-white shadow-soft hover:opacity-95"
+   261→   261→            onClick={() => scrollTo("apply")}
+   262→   262→          >
+   263→   263→            Apply Now
+   264→   264→            <ArrowRight className="h-4 w-4" />
+   265→   265→          </Button>
+   266→   266→          <Button
+   267→   267→            size="lg"
+   268→   268→            variant="outline"
+   269→   269→            className="border-border/70"
+   270→   270→            onClick={() => scrollTo("roles")}
+   271→   271→          >
+   272→   272→            Explore Roles
+   273→   273→            <ArrowDown className="h-4 w-4" />
+   274→   274→          </Button>
+   275→   275→        </div>
+   276→   276→      </PageHero>
+   277→   277→
+   278→   278→      {/* ---------------------------------------------------- Why Volunteer */}
+   279→   279→      <section className="py-16 sm:py-20 lg:py-24">
+   280→   280→        <div className="container mx-auto px-4">
+   281→   281→          <Reveal>
+   282→   282→            <SectionHeading
+   283→   283→              align="center"
+   284→   284→              eyebrow="Why volunteer"
+   285→   285→              title="Time you give. Impact you can see."
+   286→   286→              description="Volunteering with us isn't a checkbox — it's a hands-on way to grow while creating measurable change in someone's life."
+   287→   287→            />
+   288→   288→          </Reveal>
+   289→   289→
+   290→   290→          <Stagger className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+   291→   291→            {benefitCards.map((b) => {
+   292→   292→              const c = colorMap[b.color];
+   293→   293→              return (
+   294→   294→                <StaggerItem key={b.title}>
+   295→   295→                  <Card className="group relative h-full overflow-hidden border-border/60 transition-all duration-300 hover:-translate-y-1 hover:shadow-soft">
+   296→   296→                    <div
+   297→   297→                      className={`pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${c.gradient}`}
+   298→   298→                    />
+   299→   299→                    <CardHeader className="pb-3">
+   300→   300→                      <div
+   301→   301→                        className={`mb-2 inline-flex h-12 w-12 items-center justify-center rounded-xl ${c.bg} ${c.text} ring-1 ${c.softBorder}`}
+   302→   302→                      >
+   303→   303→                        <b.icon className="h-6 w-6" />
+   304→   304→                      </div>
+   305→   305→                      <CardTitle className="text-lg">{b.title}</CardTitle>
+   306→   306→                    </CardHeader>
+   307→   307→                    <CardContent>
+   308→   308→                      <CardDescription className="text-sm leading-relaxed">
+   309→   309→                        {b.description}
+   310→   310→                      </CardDescription>
+   311→   311→                    </CardContent>
+   312→   312→                  </Card>
+   313→   313→                </StaggerItem>
+   314→   314→              );
+   315→   315→            })}
+   316→   316→          </Stagger>
+   317→   317→        </div>
+   318→   318→      </section>
+   319→   319→
+   320→   320→      {/* ----------------------------------------------------- Open Roles */}
+   321→   321→      <section
+   322→   322→        id="roles"
+   323→   323→        className="scroll-mt-24 border-y border-border/60 bg-gradient-brand-soft py-16 sm:py-20 lg:py-24"
+   324→   324→      >
+   325→   325→        <div className="container mx-auto px-4">
+   326→   326→          <Reveal>
+   327→   327→            <SectionHeading
+   328→   328→              align="center"
+   329→   329→              eyebrow="Open roles"
+   330→   330→              icon={Briefcase}
+   331→   331→              title="Find the role that fits you"
+   332→   332→              description="Most roles need 2–6 hours a week. Click Apply on any role to pre-select it in the form below."
+   333→   333→            />
+   334→   334→          </Reveal>
+   335→   335→
+   336→   336→          <Stagger
+   337→   337→            className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
+   338→   338→            stagger={0.08}
+   339→   339→          >
+   340→   340→            {volunteerRoles.map((role) => {
+   341→   341→              const color = (
+   342→   342→                ["blue", "purple", "green", "blue"] as const
+   343→   343→              )[volunteerRoles.indexOf(role) % 4];
+   344→   344→              const c = colorMap[color];
+   345→   345→              const Icon = role.icon;
+   346→   346→              return (
+   347→   347→                <StaggerItem key={role.title}>
+   348→   348→                  <Card
+   349→   349→                    className={`group flex h-full flex-col overflow-hidden border ${c.softBorder} bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-soft`}
+   350→   350→                  >
+   351→   351→                    <CardHeader className="pb-3">
+   352→   352→                      <div
+   353→   353→                        className={`mb-3 inline-flex h-12 w-12 items-center justify-center rounded-xl ${c.bg} ${c.text} ring-1 ${c.softBorder}`}
+   354→   354→                      >
+   355→   355→                        <Icon className="h-6 w-6" />
+   356→   356→                      </div>
+   357→   357→                      <div className="flex items-start justify-between gap-3">
+   358→   358→                        <CardTitle className="text-lg leading-snug">
+   359→   359→                          {role.title}
+   360→   360→                        </CardTitle>
+   361→   361→                      </div>
+   362→   362→                      <div className="mt-2">
+   363→   363→                        <Badge
+   364→   364→                          variant="secondary"
+   365→   365→                          className={`gap-1.5 ${c.bg} ${c.text} border ${c.softBorder}`}
+   366→   366→                        >
+   367→   367→                          <Clock className="h-3 w-3" />
+   368→   368→                          {role.commitment}
+   369→   369→                        </Badge>
+   370→   370→                      </div>
+   371→   371→                    </CardHeader>
+   372→   372→                    <CardContent className="flex flex-1 flex-col">
+   373→   373→                      <p className="text-sm leading-relaxed text-muted-foreground">
+   374→   374→                        {role.description}
+   375→   375→                      </p>
+   376→   376→                      <Button
+   377→   377→                        type="button"
+   378→   378→                        variant="outline"
+   379→   379→                        className={`mt-5 w-full gap-1.5 border ${c.border} ${c.text} hover:${c.bg}`}
+   380→   380→                        onClick={() => handleRoleApply(role.title)}
+   381→   381→                      >
+   382→   382→                        Apply for this role
+   383→   383→                        <ArrowRight className="h-4 w-4" />
+   384→   384→                      </Button>
+   385→   385→                    </CardContent>
+   386→   386→                  </Card>
+   387→   387→                </StaggerItem>
+   388→   388→              );
+   389→   389→            })}
+   390→   390→          </Stagger>
+   391→   391→        </div>
+   392→   392→      </section>
+   393→   393→
+   394→   394→      {/* ----------------------------------------------- Volunteer Impact */}
+   395→   395→      <section className="relative overflow-hidden py-16 sm:py-20 lg:py-24">
+   396→   396→        <div className="pointer-events-none absolute inset-0 grid-pattern opacity-50" />
+   397→   397→        <div className="pointer-events-none absolute -left-24 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-brand-blue/15 blur-3xl" />
+   398→   398→        <div className="pointer-events-none absolute -right-24 top-10 h-72 w-72 rounded-full bg-brand-green/15 blur-3xl" />
+   399→   399→        <div className="container relative mx-auto px-4">
+   400→   400→          <Reveal>
+   401→   401→            <SectionHeading
+   402→   402→              align="center"
+   403→   403→              eyebrow="Volunteer impact"
+   404→   404→              icon={Heart}
+   405→   405→              title="A community 320+ strong — and growing"
+   406→   406→              description="Our volunteers power every program we run. Here's what the collective has achieved together."
+   407→   407→            />
+   408→   408→          </Reveal>
+   409→   409→
+   410→   410→          <Stagger className="mt-12 grid gap-6 sm:grid-cols-3">
+   411→   411→            {volunteerStats.map((s) => {
+   412→   412→              const c = colorMap[s.color];
+   413→   413→              const Icon = s.icon;
+   414→   414→              return (
+   415→   415→                <StaggerItem key={s.label}>
+   416→   416→                  <Card className="relative overflow-hidden border-border/60 bg-card/80 backdrop-blur">
+   417→   417→                    <CardContent className="flex items-center gap-5 p-6">
+   418→   418→                      <div
+   419→   419→                        className={`inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl ${c.bg} ${c.text} ring-1 ${c.softBorder}`}
+   420→   420→                      >
+   421→   421→                        <Icon className="h-7 w-7" />
+   422→   422→                      </div>
+   423→   423→                      <div>
+   424→   424→                        <div className={`font-poppins text-3xl font-800 ${c.text}`}>
+   425→   425→                          <AnimatedCounter
+   426→   426→                            value={s.value}
+   427→   427→                            suffix={s.suffix ?? ""}
+   428→   428→                          />
+   429→   429→                        </div>
+   430→   430→                        <div className="text-sm font-medium">{s.label}</div>
+   431→   431→                        <div className="text-xs text-muted-foreground">
+   432→   432→                          {s.description}
+   433→   433→                        </div>
+   434→   434→                      </div>
+   435→   435→                    </CardContent>
+   436→   436→                  </Card>
+   437→   437→                </StaggerItem>
+   438→   438→              );
+   439→   439→            })}
+   440→   440→          </Stagger>
+   441→   441→        </div>
+   442→   442→      </section>
+   443→   443→
+   444→   444→      {/* ----------------------------------------------- Application Form */}
+   445→   445→      <section
+   446→   446→        id="apply"
+   447→   447→        className="scroll-mt-24 border-y border-border/60 bg-gradient-brand-soft py-16 sm:py-20 lg:py-24"
+   448→   448→      >
+   449→   449→        <div className="container mx-auto px-4">
+   450→   450→          <div className="grid gap-10 lg:grid-cols-[1fr_1.6fr]">
+   451→   451→            {/* Left — heading + side info */}
+   452→   452→            <Reveal>
+   453→   453→              <div className="lg:sticky lg:top-24">
+   454→   454→                <SectionHeading
+   455→   455→                  align="left"
+   456→   456→                  eyebrow="Apply now"
+   457→   457→                  icon={Send}
+   458→   458→                  title="Tell us about you"
+   459→   459→                  description="Fill the form — our volunteer coordinator will match you to a role and reach out within 2–3 working days."
+   460→   460→                />
+   461→   461→                <div className="mt-6 space-y-3">
+   462→   462→                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+   463→   463→                    <CheckCircle2 className="h-4 w-4 text-brand-green" />
+   464→   464→                    Free to join — no fees, ever.
+   465→   465→                  </div>
+   466→   466→                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+   467→   467→                    <CheckCircle2 className="h-4 w-4 text-brand-green" />
+   468→   468→                    Most roles are remote-friendly.
+   469→   469→                  </div>
+   470→   470→                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+   471→   471→                    <CheckCircle2 className="h-4 w-4 text-brand-green" />
+   472→   472→                    Certificate & appreciation letter provided.
+   473→   473→                  </div>
+   474→   474→                </div>
+   475→   475→                <div className="relative mt-8 hidden h-44 overflow-hidden rounded-2xl border border-border/60 bg-card lg:block">
+   476→   476→                  <NodeNetwork className="absolute inset-0 h-full w-full opacity-80" />
+   477→   477→                  <div className="absolute bottom-3 left-3 text-xs font-medium text-muted-foreground">
+   478→   478→                    Your skills fit somewhere here.
+   479→   479→                  </div>
+   480→   480→                </div>
+   481→   481→              </div>
+   482→   482→            </Reveal>
+   483→   483→
+   484→   484→            {/* Right — the form */}
+   485→   485→            <Reveal delay={0.1}>
+   486→   486→              <Card className="relative overflow-hidden border-border/60 shadow-soft">
+   487→   487→                <div className="h-1.5 w-full bg-gradient-brand" />
+   488→   488→                <CardHeader>
+   489→   489→                  <CardTitle className="font-poppins text-2xl">
+   490→   490→                    Volunteer Application
+   491→   491→                  </CardTitle>
+   492→   492→                  <CardDescription>
+   493→   493→                    All fields marked <span className="text-brand-purple">*</span> are
+   494→   494→                    required. Your information stays private to our coordination team.
+   495→   495→                  </CardDescription>
+   496→   496→                </CardHeader>
+   497→   497→                <CardContent>
+   498→   498→                  <form onSubmit={handleSubmit} className="space-y-5">
+   499→   499→                    <div className="grid gap-5 sm:grid-cols-2">
+   500→   500→                      <div className="space-y-1.5">
+   501→   501→                        <Label htmlFor="name">
+   502→   502→                          Full name <span className="text-brand-purple">*</span>
+   503→   503→                        </Label>
+   504→   504→                        <Input
+   505→   505→                          id="name"
+   506→   506→                          name="name"
+   507→   507→                          value={form.name}
+   508→   508→                          onChange={handleChange}
+   509→   509→                          placeholder="e.g. Priya Sharma"
+   510→   510→                          required
+   511→   511→                          autoComplete="name"
+   512→   512→                        />
+   513→   513→                      </div>
+   514→   514→                      <div className="space-y-1.5">
+   515→   515→                        <Label htmlFor="email">
+   516→   516→                          Email <span className="text-brand-purple">*</span>
+   517→   517→                        </Label>
+   518→   518→                        <Input
+   519→   519→                          id="email"
+   520→   520→                          name="email"
+   521→   521→                          type="email"
+   522→   522→                          value={form.email}
+   523→   523→                          onChange={handleChange}
+   524→   524→                          placeholder="you@example.com"
+   525→   525→                          required
+   526→   526→                          autoComplete="email"
+   527→   527→                        />
+   528→   528→                      </div>
+   529→   529→                      <div className="space-y-1.5">
+   530→   530→                        <Label htmlFor="phone">
+   531→   531→                          Phone <span className="text-brand-purple">*</span>
+   532→   532→                        </Label>
+   533→   533→                        <Input
+   534→   534→                          id="phone"
+   535→   535→                          name="phone"
+   536→   536→                          type="tel"
+   537→   537→                          value={form.phone}
+   538→   538→                          onChange={handleChange}
+   539→   539→                          placeholder="+91 90000 00000"
+   540→   540→                          required
+   541→   541→                          autoComplete="tel"
+   542→   542→                        />
+   543→   543→                      </div>
+   544→   544→                      <div className="space-y-1.5">
+   545→   545→                        <Label htmlFor="location">Location</Label>
+   546→   546→                        <div className="relative">
+   547→   547→                          <MapPin className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+   548→   548→                          <Input
+   549→   549→                            id="location"
+   550→   550→                            name="location"
+   551→   551→                            value={form.location}
+   552→   552→                            onChange={handleChange}
+   553→   553→                            placeholder="City, State"
+   554→   554→                            className="pl-9"
+   555→   555→                          />
+   556→   556→                        </div>
+   557→   557→                      </div>
+   558→   558→                    </div>
+   559→   559→
+   560→   560→                    <div className="grid gap-5 sm:grid-cols-2">
+   561→   561→                      <div className="space-y-1.5">
+   562→   562→                        <Label htmlFor="role">
+   563→   563→                          Preferred role <span className="text-brand-purple">*</span>
+   564→   564→                        </Label>
+   565→   565→                        <Select
+   566→   566→                          value={form.role}
+   567→   567→                          onValueChange={(v) =>
+   568→   568→                            setForm((f) => ({ ...f, role: v }))
+   569→   569→                          }
+   570→   570→                        >
+   571→   571→                          <SelectTrigger id="role" className="w-full">
+   572→   572→                            <SelectValue placeholder="Choose a role" />
+   573→   573→                          </SelectTrigger>
+   574→   574→                          <SelectContent>
+   575→   575→                            {roleOptions.map((r) => (
+   576→   576→                              <SelectItem key={r} value={r}>
+   577→   577→                                {r}
+   578→   578→                              </SelectItem>
+   579→   579→                            ))}
+   580→   580→                          </SelectContent>
+   581→   581→                        </Select>
+   582→   582→                      </div>
+   583→   583→                      <div className="space-y-1.5">
+   584→   584→                        <Label htmlFor="availability">Availability</Label>
+   585→   585→                        <Select
+   586→   586→                          value={form.availability}
+   587→   587→                          onValueChange={(v) =>
+   588→   588→                            setForm((f) => ({ ...f, availability: v }))
+   589→   589→                          }
+   590→   590→                        >
+   591→   591→                          <SelectTrigger id="availability" className="w-full">
+   592→   592→                            <SelectValue placeholder="When can you volunteer?" />
+   593→   593→                          </SelectTrigger>
+   594→   594→                          <SelectContent>
+   595→   595→                            {availabilityOptions.map((a) => (
+   596→   596→                              <SelectItem key={a} value={a}>
+   597→   597→                                {a}
+   598→   598→                              </SelectItem>
+   599→   599→                            ))}
+   600→   600→                          </SelectContent>
+   601→   601→                        </Select>
+   602→   602→                      </div>
+   603→   603→                    </div>
+   604→   604→
+   605→   605→                    <div className="space-y-1.5">
+   606→   606→                      <Label htmlFor="skills">
+   607→   607→                        Skills &amp; experience
+   608→   608→                      </Label>
+   609→   609→                      <Textarea
+   610→   610→                        id="skills"
+   611→   611→                        name="skills"
+   612→   612→                        value={form.skills}
+   613→   613→                        onChange={handleChange}
+   614→   614→                        placeholder="e.g. Python, curriculum design, event coordination, public speaking…"
+   615→   615→                        rows={3}
+   616→   616→                      />
+   617→   617→                    </div>
+   618→   618→
+   619→   619→                    <div className="space-y-1.5">
+   620→   620→                      <Label htmlFor="motivation">
+   621→   621→                        Why do you want to volunteer with us?
+   622→   622→                      </Label>
+   623→   623→                      <Textarea
+   624→   624→                        id="motivation"
+   625→   625→                        name="motivation"
+   626→   626→                        value={form.motivation}
+   627→   627→                        onChange={handleChange}
+   628→   628→                        placeholder="A sentence or two about what excites you and how you'd like to contribute."
+   629→   629→                        rows={4}
+   630→   630→                      />
+   631→   631→                    </div>
+   632→   632→
+   633→   633→                    <Separator />
+   634→   634→
+   635→   635→                    <div className="flex flex-col-reverse items-stretch gap-3 sm:flex-row sm:items-center sm:justify-end">
+   636→   636→                      <Button
+   637→   637→                        type="button"
+   638→   638→                        variant="ghost"
+   639→   639→                        onClick={() =>
+   640→   640→                          setForm({
+   641→   641→                            name: "",
+   642→   642→                            email: "",
+   643→   643→                            phone: "",
+   644→   644→                            role: "",
+   645→   645→                            location: "",
+   646→   646→                            skills: "",
+   647→   647→                            availability: "",
+   648→   648→                            motivation: "",
+   649→   649→                          })
+   650→   650→                        }
+   651→   651→                        disabled={submitting}
+   652→   652→                      >
+   653→   653→                        Reset
+   654→   654→                      </Button>
+   655→   655→                      <Button
+   656→   656→                        type="submit"
+   657→   657→                        disabled={submitting}
+   658→   658→                        className="bg-gradient-brand text-white shadow-soft hover:opacity-95"
+   659→   659→                      >
+   660→   660→                        {submitting ? (
+   661→   661→                          <>
+   662→   662→                            <Loader2 className="h-4 w-4 animate-spin" />
+   663→   663→                            Submitting…
+   664→   664→                          </>
+   665→   665→                        ) : (
+   666→   666→                          <>
+   667→   667→                            <Send className="h-4 w-4" />
+   668→   668→                            Submit application
+   669→   669→                          </>
+   670→   670→                        )}
+   671→   671→                      </Button>
+   672→   672→                    </div>
+   673→   673→                  </form>
+   674→   674→                </CardContent>
+   675→   675→              </Card>
+   676→   676→            </Reveal>
+   677→   677→          </div>
+   678→   678→        </div>
+   679→   679→      </section>
+   680→   680→
+   681→   681→      {/* ----------------------------------------------------------- FAQs */}
+   682→   682→      <section className="py-16 sm:py-20 lg:py-24">
+   683→   683→        <div className="container mx-auto px-4">
+   684→   684→          <Reveal>
+   685→   685→            <SectionHeading
+   686→   686→              align="center"
+   687→   687→              eyebrow="FAQs"
+   688→   688→              icon={HelpCircle}
+   689→   689→              title="Questions, answered"
+   690→   690→              description="Everything you might want to know before you hit submit."
+   691→   691→            />
+   692→   692→          </Reveal>
+   693→   693→
+   694→   694→          <Reveal delay={0.1}>
+   695→   695→            <div className="mx-auto mt-10 max-w-3xl">
+   696→   696→              <Card className="overflow-hidden border-border/60">
+   697→   697→                <CardContent className="p-2 sm:p-4">
+   698→   698→                  <Accordion type="single" collapsible defaultValue="faq-0">
+   699→   699→                    {volunteerFaqs.map((faq, i) => (
+   700→   700→                      <AccordionItem
+   701→   701→                        key={faq.q}
+   702→   702→                        value={`faq-${i}`}
+   703→   703→                        className="px-2 sm:px-3"
+   704→   704→                      >
+   705→   705→                        <AccordionTrigger className="text-left text-base font-medium">
+   706→   706→                          {faq.q}
+   707→   707→                        </AccordionTrigger>
+   708→   708→                        <AccordionContent className="text-sm leading-relaxed text-muted-foreground">
+   709→   709→                          {faq.a}
+   710→   710→                        </AccordionContent>
+   711→   711→                      </AccordionItem>
+   712→   712→                    ))}
+   713→   713→                  </Accordion>
+   714→   714→                </CardContent>
+   715→   715→              </Card>
+   716→   716→            </div>
+   717→   717→          </Reveal>
+   718→   718→        </div>
+   719→   719→      </section>
+   720→   720→
+   721→   721→      {/* ------------------------------------------------------------ CTA */}
+   722→   722→      <section className="pb-20">
+   723→   723→        <div className="container mx-auto px-4">
+   724→   724→          <Reveal>
+   725→   725→            <div className="relative overflow-hidden rounded-3xl bg-gradient-brand p-8 text-center shadow-soft sm:p-12 lg:p-16">
+   726→   726→              <div className="pointer-events-none absolute inset-0 grid-pattern opacity-20" />
+   727→   727→              <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-white/15 blur-3xl" />
+   728→   728→              <div className="pointer-events-none absolute -left-16 bottom-0 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
+   729→   729→              <div className="relative">
+   730→   730→                <div className="mx-auto mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15 text-white ring-1 ring-white/30">
+   731→   731→                  <HandHeart className="h-7 w-7" />
+   732→   732→                </div>
+   733→   733→                <h2 className="font-poppins text-3xl font-800 text-white sm:text-4xl">
+   734→   734→                  Prefer to donate instead?
+   735→   735→                </h2>
+   736→   736→                <p className="mx-auto mt-3 max-w-2xl text-white/90">
+   737→   737→                  Your contribution directly funds learning kits, bootcamp seats and
+   738→   738→                  community drives. Every rupee is tracked and reported transparently.
+   739→   739→                </p>
+   740→   740→                <div className="mt-7 flex flex-wrap justify-center gap-3">
+   741→   741→                  <Button
+   742→   742→                    asChild
+   743→   743→                    size="lg"
+   744→   744→                    className="bg-white text-brand-blue hover:bg-white/90"
+   745→   745→                  >
+   746→   746→                    <Link href="/donate">
+   747→   747→                      Donate now
+   748→   748→                      <ArrowRight className="h-4 w-4" />
+   749→   749→                    </Link>
+   750→   750→                  </Button>
+   751→   751→                  <Button
+   752→   752→                    asChild
+   753→   753→                    size="lg"
+   754→   754→                    variant="outline"
+   755→   755→                    className="border-white/40 bg-white/10 text-white hover:bg-white/20"
+   756→   756→                  >
+   757→   757→                    <Link href="/contact">Talk to us</Link>
+   758→   758→                  </Button>
+   759→   759→                </div>
+   760→   760→              </div>
+   761→   761→            </div>
+   762→   762→          </Reveal>
+   763→   763→        </div>
+   764→   764→      </section>
+   765→   765→    </>
+   766→   766→  );
+   767→   767→}
+   768→   768→

@@ -1,0 +1,742 @@
+     1→import type { LucideIcon } from "lucide-react";
+     2→import {
+     3→  Sparkles,
+     4→  Code2,
+     5→  GraduationCap,
+     6→  HeartHandshake,
+     7→  Users,
+     8→  Brain,
+     9→  Bot,
+    10→  Cpu,
+    11→  Globe,
+    12→  BookOpen,
+    13→  Briefcase,
+    14→  Award,
+    15→  Laptop,
+    16→  ShieldCheck,
+    17→  Rocket,
+    18→  Target,
+    19→  Heart,
+    20→  Handshake,
+    21→  Building2,
+    22→  Scale,
+    23→  Lightbulb,
+    24→  TrendingUp,
+    25→} from "lucide-react";
+    26→
+    27→export const site = {
+    28→  name: "Atom Foundation",
+    29→  tagline: "Building Future-Ready Communities Through Technology & Education",
+    30→  vision:
+    31→    "Empower every student and woman with future-ready technology skills, enabling sustainable careers and inclusive growth through education, AI, innovation, and community development.",
+    32→  mission:
+    33→    "To democratize access to future-ready technology education, empower women and underserved communities, and build sustainable careers through AI, software skills, and strong partnerships.",
+    34→  email: "hello@atomfoundation.org",
+    35→  phone: "+91 80000 00000",
+    36→  address: "Atom Foundation, Indiranagar, Bengaluru, Karnataka 560038, India",
+    37→  founded: 2019,
+    38→  registration: "Reg. under Societies Act, 80G & 12A approved",
+    39→};
+    40→
+    41→export type Program = {
+    42→  id: string;
+    43→  title: string;
+    44→  tagline: string;
+    45→  description: string;
+    46→  icon: LucideIcon;
+    47→  color: "blue" | "purple" | "green";
+    48→  duration: string;
+    49→  level: string;
+    50→  audience: string;
+    51→  modules: { name: string; description: string; icon: LucideIcon }[];
+    52→  outcomes: string[];
+    53→};
+    54→
+    55→export const programs: Program[] = [
+    56→  {
+    57→    id: "ai",
+    58→    title: "AI Training",
+    59→    tagline: "Master the intelligence shaping the future",
+    60→    description:
+    61→      "A hands-on AI learning track taking learners from prompt engineering fundamentals to building generative AI applications and understanding machine learning.",
+    62→    icon: Sparkles,
+    63→    color: "blue",
+    64→    duration: "12 weeks",
+    65→    level: "Beginner → Advanced",
+    66→    audience: "Students & fresh graduates",
+    67→    modules: [
+    68→      { name: "Prompt Engineering", description: "Crafting effective prompts for LLMs across real use cases.", icon: Bot },
+    69→      { name: "Generative AI", description: "Building apps with text, image & code generation models.", icon: Brain },
+    70→      { name: "Machine Learning Basics", description: "Models, data, training & evaluation fundamentals.", icon: Cpu },
+    71→    ],
+    72→    outcomes: [
+    73→      "Build & deploy a GenAI powered application",
+    74→      "Earn an Atom Foundation AI certificate",
+    75→      "Career-ready portfolio with 3 projects",
+    76→    ],
+    77→  },
+    78→  {
+    79→    id: "software",
+    80→    title: "Software Development",
+    81→    tagline: "From first line of code to production apps",
+    82→    description:
+    83→      "A full-stack software development track covering web, Python, Java and mobile app development with real projects and industry workflows.",
+    84→    icon: Code2,
+    85→    color: "purple",
+    86→    duration: "16 weeks",
+    87→    level: "Beginner → Intermediate",
+    88→    audience: "Students & career switchers",
+    89→    modules: [
+    90→      { name: "Web Development", description: "HTML, CSS, JavaScript, React & modern frameworks.", icon: Globe },
+    91→      { name: "Python Programming", description: "Automation, data scripting & backend basics.", icon: Code2 },
+    92→      { name: "Java & Mobile Apps", description: "Object-oriented programming & cross-platform apps.", icon: Laptop },
+    93→    ],
+    94→    outcomes: [
+    95→      "Ship 2 full-stack projects to a live portfolio",
+    96→      "Git, agile & code-review ready workflows",
+    97→      "Internship & placement assistance",
+    98→    ],
+    99→  },
+   100→  {
+   101→    id: "career",
+   102→    title: "Career Readiness",
+   103→    tagline: "Land the opportunity, not just the skills",
+   104→    description:
+   105→      "A career accelerator program that builds resumes, aptitude, interview confidence and a strong professional presence for first-time job seekers.",
+   106→    icon: GraduationCap,
+   107→    color: "green",
+   108→    duration: "6 weeks",
+   109→    level: "All levels",
+   110→    audience: "Final-year students & graduates",
+   111→    modules: [
+   112→      { name: "Resume Building", description: "ATS-friendly resumes that get shortlisted.", icon: Briefcase },
+   113→      { name: "Aptitude & Reasoning", description: "Quant, logic & verbal problem solving.", icon: Brain },
+   114→      { name: "Interview Skills & LinkedIn", description: "Mock interviews, personal branding & networking.", icon: Award },
+   115→    ],
+   116→    outcomes: [
+   117→      "Polished resume + optimized LinkedIn profile",
+   118→      "5+ mock interviews with feedback",
+   119→      "Access to our hiring partner network",
+   120→    ],
+   121→  },
+   122→  {
+   123→    id: "women",
+   124→    title: "Women Empowerment",
+   125→    tagline: "Digital confidence for every woman",
+   126→    description:
+   127→      "A dedicated track for women including housewives, rural women and self-help groups — building digital literacy, entrepreneurship and financial awareness.",
+   128→    icon: HeartHandshake,
+   129→    color: "purple",
+   130→    duration: "10 weeks",
+   131→    level: "Beginner friendly",
+   132→    audience: "Women & self-help groups",
+   133→    modules: [
+   134→      { name: "Digital Literacy", description: "Smartphones, internet safety & online services.", icon: Laptop },
+   135→      { name: "Entrepreneurship", description: "Turning skills into micro-businesses & online selling.", icon: Rocket },
+   136→      { name: "AI for Women & Financial Awareness", description: "Using AI tools & managing money confidently.", icon: TrendingUp },
+   137→    ],
+   138→    outcomes: [
+   139→      "Digital independence for daily life & work",
+   140→      "Micro-entrepreneurship starter kit",
+   141→      "Certificate & SHG community access",
+   142→    ],
+   143→  },
+   144→  {
+   145→    id: "school",
+   146→    title: "School Programs",
+   147→    tagline: "Early coders, tomorrow's innovators",
+   148→    description:
+   149→      "Engaging school programs introducing kids to coding, STEM workshops and robotics to spark curiosity and computational thinking early.",
+   150→    icon: Users,
+   151→    color: "blue",
+   152→    duration: "Ongoing",
+   153→    level: "Grades 5–12",
+   154→    audience: "Schools & students",
+   155→    modules: [
+   156→      { name: "Coding for Kids", description: "Block-based & introductory programming.", icon: Code2 },
+   157→      { name: "STEM Workshops", description: "Science, tech, engineering & math exploration.", icon: Lightbulb },
+   158→      { name: "Robotics", description: "Hands-on robotics & automation basics.", icon: Cpu },
+   159→    ],
+   160→    outcomes: [
+   161→      "Annual coding & robotics clubs",
+   162→      "Inter-school innovation challenges",
+   163→      "Teacher capacity-building sessions",
+   164→    ],
+   165→  },
+   166→];
+   167→
+   168→export type ImpactMetric = {
+   169→  label: string;
+   170→  value: number;
+   171→  suffix?: string;
+   172→  icon: LucideIcon;
+   173→  color: "blue" | "purple" | "green";
+   174→  description: string;
+   175→};
+   176→
+   177→export const impactMetrics: ImpactMetric[] = [
+   178→  { label: "Students Trained", value: 12450, suffix: "+", icon: GraduationCap, color: "blue", description: "Across 9 states in India" },
+   179→  { label: "Women Empowered", value: 4200, suffix: "+", icon: HeartHandshake, color: "purple", description: "Through digital literacy & SHGs" },
+   180→  { label: "Schools Reached", value: 180, suffix: "+", icon: Building2, color: "green", description: "Government & private schools" },
+   181→  { label: "Active Volunteers", value: 320, suffix: "+", icon: Users, color: "blue", description: "Mentors, trainers & developers" },
+   182→  { label: "Training Hours", value: 86000, suffix: "+", icon: BookOpen, color: "purple", description: "Delivered in the last 3 years" },
+   183→  { label: "Placement Support", value: 68, suffix: "%", icon: Briefcase, color: "green", description: "Of eligible graduates placed" },
+   184→  { label: "Partner Organizations", value: 45, suffix: "+", icon: Handshake, color: "blue", description: "CSR, NGOs, govt & tech partners" },
+   185→  { label: "Districts Covered", value: 32, suffix: "", icon: Globe, color: "purple", description: "Rural & semi-urban reach" },
+   186→];
+   187→
+   188→export type Sdg = {
+   189→  number: number;
+   190→  title: string;
+   191→  color: string;
+   192→  icon: LucideIcon;
+   193→  contribution: string;
+   194→  highlights: string[];
+   195→};
+   196→
+   197→export const sdgs: Sdg[] = [
+   198→  {
+   199→    number: 4,
+   200→    title: "Quality Education",
+   201→    color: "#C5192D",
+   202→    icon: BookOpen,
+   203→    contribution:
+   204→      "We deliver free and affordable future-ready tech education to students and women who otherwise lack access.",
+   205→    highlights: ["12,450+ students trained", "Free community bootcamps", "Open learning resources"],
+   206→  },
+   207→  {
+   208→    number: 5,
+   209→    title: "Gender Equality",
+   210→    color: "#FF3A21",
+   211→    icon: HeartHandshake,
+   212→    contribution:
+   213→      "Dedicated women empowerment tracks build digital confidence and entrepreneurship for women from all backgrounds.",
+   214→    highlights: ["4,200+ women empowered", "Women-only cohorts", "SHG micro-entrepreneurship"],
+   215→  },
+   216→  {
+   217→    number: 8,
+   218→    title: "Decent Work & Economic Growth",
+   219→    color: "#A21942",
+   220→    icon: Briefcase,
+   221→    contribution:
+   222→      "Career readiness, placement support and internships connect learners to sustainable, dignified livelihoods.",
+   223→    highlights: ["68% placement rate", "Hiring partner network", "Internship pipeline"],
+   224→  },
+   225→  {
+   226→    number: 10,
+   227→    title: "Reduced Inequalities",
+   228→    color: "#DD1367",
+   229→    icon: Scale,
+   230→    contribution:
+   231→      "We reach rural, semi-urban and underserved communities so opportunity is not limited by geography or income.",
+   232→    highlights: ["32 districts covered", "Scholarships for needy", "Regional language support"],
+   233→  },
+   234→  {
+   235→    number: 9,
+   236→    title: "Industry, Innovation & Infrastructure",
+   237→    color: "#FD6925",
+   238→    icon: Cpu,
+   239→    contribution:
+   240→      "AI, software and robotics programs build innovation capacity and digital infrastructure in communities.",
+   241→    highlights: ["AI & robotics labs", "Innovation challenges", "Open-source contributions"],
+   242→  },
+   243→  {
+   244→    number: 17,
+   245→    title: "Partnerships for the Goals",
+   246→    color: "#19486A",
+   247→    icon: Handshake,
+   248→    contribution:
+   249→      "We work with CSR companies, NGOs, government and tech partners to multiply impact together.",
+   250→    highlights: ["45+ partner orgs", "CSR & govt collaborations", "Joint community programs"],
+   251→  },
+   252→];
+   253→
+   254→export type EventItem = {
+   255→  id: string;
+   256→  title: string;
+   257→  type: "Workshop" | "Hackathon" | "AI Bootcamp" | "Community Program" | "Webinar";
+   258→  date: string; // ISO
+   259→  endDate?: string;
+   260→  location: string;
+   261→  mode: "Online" | "Offline" | "Hybrid";
+   262→  description: string;
+   263→  status: "upcoming" | "past";
+   264→  seats?: number;
+   265→  registered?: number;
+   266→};
+   267→
+   268→export const events: EventItem[] = [
+   269→  {
+   270→    id: "ev1",
+   271→    title: "Generative AI Bootcamp 2025",
+   272→    type: "AI Bootcamp",
+   273→    date: "2025-02-15",
+   274→    endDate: "2025-02-17",
+   275→    location: "Bengaluru + Online",
+   276→    mode: "Hybrid",
+   277→    description: "A 3-day intensive bootcamp on prompt engineering, RAG, and building GenAI apps with no-code tools.",
+   278→    status: "upcoming",
+   279→    seats: 200,
+   280→    registered: 142,
+   281→  },
+   282→  {
+   283→    id: "ev2",
+   284→    title: "Women in Tech: Digital Literacy Drive",
+   285→    type: "Community Program",
+   286→    date: "2025-02-22",
+   287→    location: "Tumkur, Karnataka",
+   288→    mode: "Offline",
+   289→    description: "A community outreach program bringing smartphones, internet safety and AI basics to rural women.",
+   290→    status: "upcoming",
+   291→    seats: 120,
+   292→    registered: 58,
+   293→  },
+   294→  {
+   295→    id: "ev3",
+   296→    title: "Atom Hackathon: Code for Community",
+   297→    type: "Hackathon",
+   298→    date: "2025-03-08",
+   299→    endDate: "2025-03-09",
+   300→    location: "Online",
+   301→    mode: "Online",
+   302→    description: "48 hours to build solutions for education, women empowerment and local community challenges.",
+   303→    status: "upcoming",
+   304→    seats: 500,
+   305→    registered: 311,
+   306→  },
+   307→  {
+   308→    id: "ev4",
+   309→    title: "STEM Robotics Workshop for Schools",
+   310→    type: "Workshop",
+   311→    date: "2025-03-15",
+   312→    location: "Government High School, Mysuru",
+   313→    mode: "Offline",
+   314→    description: "Hands-on robotics and automation workshop introducing students to sensors, motors and block coding.",
+   315→    status: "upcoming",
+   316→    seats: 80,
+   317→    registered: 40,
+   318→  },
+   319→  {
+   320→    id: "ev5",
+   321→    title: "Career Readiness Webinar: Cracking Interviews",
+   322→    type: "Webinar",
+   323→    date: "2025-03-21",
+   324→    location: "Online (YouTube Live)",
+   325→    mode: "Online",
+   326→    description: "Live session with hiring managers on resume building, aptitude and interview strategies.",
+   327→    status: "upcoming",
+   328→    seats: 1000,
+   329→    registered: 620,
+   330→  },
+   331→  {
+   332→    id: "ev6",
+   333→    title: "AI for Women — Cohort 4 Graduation",
+   334→    type: "Community Program",
+   335→    date: "2024-12-14",
+   336→    location: "Bengaluru",
+   337→    mode: "Offline",
+   338→    description: "Graduation ceremony celebrating 140 women who completed the digital literacy & entrepreneurship program.",
+   339→    status: "past",
+   340→  },
+   341→  {
+   342→    id: "ev7",
+   343→    title: "Code for Kids — Winter Coding Camp",
+   344→    type: "Workshop",
+   345→    date: "2024-11-20",
+   346→    endDate: "2024-11-24",
+   347→    location: "Hubballi",
+   348→    mode: "Offline",
+   349→    description: "A 5-day camp introducing 90 school students to block-based coding and building simple games.",
+   350→    status: "past",
+   351→  },
+   352→  {
+   353→    id: "ev8",
+   354→    title: "Software Developer Bootcamp — Cohort 7",
+   355→    type: "AI Bootcamp",
+   356→    date: "2024-10-05",
+   357→    endDate: "2024-12-20",
+   358→    location: "Hybrid",
+   359→    mode: "Hybrid",
+   360→    description: "16-week full-stack software development bootcamp graduating 48 students with placement support.",
+   361→    status: "past",
+   362→  },
+   363→];
+   364→
+   365→export type Story = {
+   366→  id: string;
+   367→  name: string;
+   368→  role: string;
+   369→  category: "Student" | "Women Entrepreneur" | "Placement" | "Volunteer";
+   370→  image: string;
+   371→  quote: string;
+   372→  journey: string;
+   373→  before: string;
+   374→  after: string;
+   375→};
+   376→
+   377→export const stories: Story[] = [
+   378→  {
+   379→    id: "s1",
+   380→    name: "Priya Sharma",
+   381→    role: "Junior AI Developer, TechNova",
+   382→    category: "Placement",
+   383→    image: "priya",
+   384→    quote:
+   385→      "Atom Foundation didn't just teach me AI — they showed me I belonged in tech. Today I build GenAI features used by thousands.",
+   386→    journey: "From a tier-3 college with no coding background to a placed AI developer in 9 months.",
+   387→    before: "Final-year student, no coding exposure, unsure about career path.",
+   388→    after: "Placed as Junior AI Developer with a 4.2 LPA package within 3 months of graduation.",
+   389→  },
+   390→  {
+   391→    id: "s2",
+   392→    name: "Lakshmi Devi",
+   393→    role: "SHG Entrepreneur",
+   394→    category: "Women Entrepreneur",
+   395→    image: "lakshmi",
+   396→    quote:
+   397→      "I learned to use a smartphone, sell online and now run a small tailoring business from home. I am financially independent.",
+   398→    journey: "A rural homemaker who became a micro-entrepreneur through the women empowerment program.",
+   399→    before: "Homemaker in a village, never used a smartphone, fully dependent on family.",
+   400→    after: "Runs a home tailuring business, earns ₹12,000/month, mentors 8 other women.",
+   401→  },
+   402→  {
+   403→    id: "s3",
+   404→    name: "Arjun Reddy",
+   405→    role: "Full-stack Developer Intern",
+   406→    category: "Student",
+   407→    image: "arjun",
+   408→    quote:
+   409→      "The software development bootcamp was intense and real. I shipped two live projects before I even graduated.",
+   410→    journey: "A curious student who turned into a confident full-stack developer.",
+   411→    before: "Knew basic HTML, struggled with logic and had no portfolio.",
+   412→    after: "Built 2 full-stack apps, comfortable with React & Python, landed a paid internship.",
+   413→  },
+   414→  {
+   415→    id: "s4",
+   416→    name: "Meera Nair",
+   417→    role: "Volunteer Mentor",
+   418→    category: "Volunteer",
+   419→    image: "meera",
+   420→    quote:
+   421→      "Volunteering as a mentor gave me more than I gave. Watching students grow is the most fulfilling thing I've done.",
+   422→    journey: "A senior engineer who now mentors 15 students every cohort.",
+   423→    before: "Wanted to give back but didn't know how or where.",
+   424→    after: "Mentors 15 students/cohort, ran 3 mock-interview drives, 4 mentees placed.",
+   425→  },
+   426→  {
+   427→    id: "s5",
+   428→    name: "Fatima Khan",
+   429→    role: "Data Analyst, FinEdge",
+   430→    category: "Placement",
+   431→    image: "fatima",
+   432→    quote:
+   433→      "The career readiness program transformed how I present myself. My first interview after the program — I got the offer.",
+   434→    journey: "From interview anxiety to a confident, placed data analyst.",
+   435→    before: "Strong academically but failed 6 interviews due to nerves and presentation.",
+   436→    after: "Cleared first interview after the program, placed as Data Analyst at 5.5 LPA.",
+   437→  },
+   438→  {
+   439→    id: "s6",
+   440→    name: "Ravi Kumar",
+   441→    role: "School Coding Club Lead",
+   442→    category: "Student",
+   443→    image: "ravi",
+   444→    quote:
+   445→      "The robotics workshop made science fun. I built my first robot in class 8 and now lead my school's coding club.",
+   446→    journey: "A school student whose curiosity was ignited by STEM programs.",
+   447→    before: "Class 8 student, found science boring, no exposure to coding.",
+   448→    after: "Leads school coding club, built 3 robots, won inter-school innovation challenge.",
+   449→  },
+   450→];
+   451→
+   452→export type Partner = {
+   453→  name: string;
+   454→  type: "CSR" | "Educational Institution" | "NGO" | "Government" | "Technology";
+   455→  logoText: string;
+   456→};
+   457→
+   458→export const partners: Partner[] = [
+   459→  { name: "TechNova Solutions", type: "CSR", logoText: "TN" },
+   460→  { name: "GreenLeaf Corp", type: "CSR", logoText: "GL" },
+   461→  { name: "Indian Institute of Technology", type: "Educational Institution", logoText: "IIT" },
+   462→  { name: "National College Bengaluru", type: "Educational Institution", logoText: "NC" },
+   463→  { name: "Pratham Education NGO", type: "NGO", logoText: "PE" },
+   464→  { name: "Rural Shine Foundation", type: "NGO", logoText: "RS" },
+   465→  { name: "Karnataka Skill Development", type: "Government", logoText: "KSD" },
+   466→  { name: "Digital India Mission", type: "Government", logoText: "DI" },
+   467→  { name: "OpenAI Edu", type: "Technology", logoText: "OA" },
+   468→  { name: "CloudForge", type: "Technology", logoText: "CF" },
+   469→  { name: "DataBridge Labs", type: "Technology", logoText: "DB" },
+   470→  { name: "MindSpark Systems", type: "CSR", logoText: "MS" },
+   471→];
+   472→
+   473→export type TeamMember = {
+   474→  name: string;
+   475→  role: string;
+   476→  bio: string;
+   477→  initials: string;
+   478→  color: "blue" | "purple" | "green";
+   479→  socials?: { label: string; href: string }[];
+   480→};
+   481→
+   482→export const team: TeamMember[] = [
+   483→  {
+   484→    name: "Dr. Anand Iyer",
+   485→    role: "Founder & President",
+   486→    bio: "Former AI research lead with 18 years in education technology and a passion for equitable access.",
+   487→    initials: "AI",
+   488→    color: "blue",
+   489→  },
+   490→  {
+   491→    name: "Sneha Kulkarni",
+   492→    role: "Co-Founder & Director of Programs",
+   493→    bio: "Educator and curriculum designer who has scaled skill programs to 12,000+ learners.",
+   494→    initials: "SK",
+   495→    color: "purple",
+   496→  },
+   497→  {
+   498→    name: "Rahul Verma",
+   499→    role: "Head of Technology",
+   500→    bio: "Full-stack engineer and open-source contributor leading our LMS and learning tools.",
+   501→    initials: "RV",
+   502→    color: "green",
+   503→  },
+   504→  {
+   505→    name: "Aisha Mohammed",
+   506→    role: "Director, Women Empowerment",
+   507→    bio: "Community organizer driving digital literacy for 4,200+ women across rural Karnataka.",
+   508→    initials: "AM",
+   509→    color: "purple",
+   510→  },
+   511→  {
+   512→    name: "Vikram Desai",
+   513→    role: "Head of Partnerships",
+   514→    bio: "Builds CSR, government and institutional partnerships that fund and scale our mission.",
+   515→    initials: "VD",
+   516→    color: "blue",
+   517→  },
+   518→  {
+   519→    name: "Neha Joshi",
+   520→    role: "Lead, Career Readiness",
+   521→    bio: "Career coach running mock interviews, placement drives and hiring partner networks.",
+   522→    initials: "NJ",
+   523→    color: "green",
+   524→  },
+   525→];
+   526→
+   527→export type Advisor = {
+   528→  name: string;
+   529→  role: string;
+   530→  org: string;
+   531→  initials: string;
+   532→};
+   533→
+   534→export const advisors: Advisor[] = [
+   535→  { name: "Prof. Rajesh Menon", role: "AI & Education Advisor", org: "IIT Madras", initials: "RM" },
+   536→  { name: "Dr. Kavita Rao", role: "Women & Community Advisor", org: "NIRM, Bengaluru", initials: "KR" },
+   537→  { name: "Suresh Bhat", role: "Industry & CSR Advisor", org: "Ex-CFO, GreenLeaf Corp", initials: "SB" },
+   538→  { name: "Anita Pillai", role: "Policy & Government Advisor", org: "Former Secretary, IT Dept.", initials: "AP" },
+   539→];
+   540→
+   541→export type CoreValue = {
+   542→  title: string;
+   543→  description: string;
+   544→  icon: LucideIcon;
+   545→  color: "blue" | "purple" | "green";
+   546→};
+   547→
+   548→export const coreValues: CoreValue[] = [
+   549→  { title: "Equity First", description: "Opportunity should never be decided by geography, gender or income.", icon: Scale, color: "blue" },
+   550→  { title: "Learning by Doing", description: "Real projects, real communities, real outcomes — not just theory.", icon: Rocket, color: "purple" },
+   551→  { title: "Community Driven", description: "We grow with the people we serve, led by mentors from within.", icon: Users, color: "green" },
+   552→  { title: "Transparency", description: "Open reporting, measurable impact and accountable use of every rupee.", icon: ShieldCheck, color: "blue" },
+   553→  { title: "Innovation", description: "We bring the latest in AI and technology to those who need it most.", icon: Lightbulb, color: "purple" },
+   554→  { title: "Sustainable Impact", description: "Careers and capabilities that last far beyond a single program.", icon: TrendingUp, color: "green" },
+   555→];
+   556→
+   557→export type Milestone = {
+   558→  year: string;
+   559→  title: string;
+   560→  description: string;
+   561→};
+   562→
+   563→export const timeline: Milestone[] = [
+   564→  { year: "2019", title: "Atom Foundation is born", description: "Started with a single coding workshop for 30 students in Bengaluru." },
+   565→  { year: "2020", title: "Going online during the pandemic", description: "Pivoted to digital delivery, reaching 1,200 students across 4 states." },
+   566→  { year: "2021", title: "Women Empowerment track launches", description: "First women-only cohort with 80 SHG members in rural Karnataka." },
+   567→  { year: "2022", title: "First AI Training bootcamp", description: "Launched our flagship AI track with 60 students and 3 hiring partners." },
+   568→  { year: "2023", title: "10,000 students trained", description: "Crossed 10,000 trained learners with a 65% placement rate." },
+   569→  { year: "2024", title: "CSR & government partnerships scale", description: "Signed 12 new CSR and government partnerships, expanded to 32 districts." },
+   570→  { year: "2025", title: "Future-ready communities", description: "Launching AI career assistant, LMS and scholarship portal." },
+   571→];
+   572→
+   573→export type BlogPost = {
+   574→  slug: string;
+   575→  title: string;
+   576→  excerpt: string;
+   577→  category: "AI" | "Technology" | "Career" | "Education" | "Women Empowerment" | "Success Stories" | "Research";
+   578→  author: string;
+   579→  date: string;
+   580→  readTime: string;
+   581→  gradient: string;
+   582→};
+   583→
+   584→export const blogPosts: BlogPost[] = [
+   585→  {
+   586→    slug: "generative-ai-for-students",
+   587→    title: "Generative AI for Students: A Practical 2025 Starter Guide",
+   588→    excerpt: "How any student can start building with generative AI — tools, prompts and first projects that actually impress recruiters.",
+   589→    category: "AI",
+   590→    author: "Dr. Anand Iyer",
+   591→    date: "2025-01-12",
+   592→    readTime: "7 min read",
+   593→    gradient: "from-blue-500 to-purple-500",
+   594→  },
+   595→  {
+   596→    slug: "career-readiness-roadmap",
+   597→    title: "The 6-Week Career Readiness Roadmap That Gets You Placed",
+   598→    excerpt: "A week-by-week breakdown of the exact roadmap our placement-ready graduates follow — from resume to offer letter.",
+   599→    category: "Career",
+   600→    author: "Neha Joshi",
+   601→    date: "2025-01-05",
+   602→    readTime: "9 min read",
+   603→    gradient: "from-green-500 to-blue-500",
+   604→  },
+   605→  {
+   606→    slug: "women-digital-literacy-impact",
+   607→    title: "How Digital Literacy Is Rewriting Rural Women's Futures",
+   608→    excerpt: "Stories and data from our women empowerment cohorts — what works, what doesn't, and the measurable impact.",
+   609→    category: "Women Empowerment",
+   610→    author: "Aisha Mohammed",
+   611→    date: "2024-12-20",
+   612→    readTime: "8 min read",
+   613→    gradient: "from-purple-500 to-pink-500",
+   614→  },
+   615→  {
+   616→    slug: "ai-bootcamp-recap",
+   617→    title: "Inside Our Generative AI Bootcamp: 48 Hours, 60 Students, 12 Apps",
+   618→    excerpt: "A recap of our latest AI bootcamp — the projects students built and the lessons we learned as educators.",
+   619→    category: "Success Stories",
+   620→    author: "Rahul Verma",
+   621→    date: "2024-12-08",
+   622→    readTime: "6 min read",
+   623→    gradient: "from-blue-500 to-cyan-500",
+   624→  },
+   625→  {
+   626→    slug: "future-ready-skills",
+   627→    title: "Future-Ready Skills Every Student Needs by 2026",
+   628→    excerpt: "The shifting skill landscape and the capabilities that will define employability over the next two years.",
+   629→    category: "Education",
+   630→    author: "Sneha Kulkarni",
+   631→    date: "2024-11-28",
+   632→    readTime: "10 min read",
+   633→    gradient: "from-green-500 to-emerald-500",
+   634→  },
+   635→  {
+   636→    slug: "csr-partnership-model",
+   637→    title: "A CSR Partnership Model That Actually Creates Measurable Impact",
+   638→    excerpt: "How we structure CSR collaborations for transparency, accountability and real community outcomes.",
+   639→    category: "Technology",
+   640→    author: "Vikram Desai",
+   641→    date: "2024-11-10",
+   642→    readTime: "7 min read",
+   643→    gradient: "from-purple-500 to-blue-500",
+   644→  },
+   645→];
+   646→
+   647→export type Testimonial = {
+   648→  name: string;
+   649→  role: string;
+   650→  quote: string;
+   651→  initials: string;
+   652→  color: "blue" | "purple" | "green";
+   653→};
+   654→
+   655→export const testimonials: Testimonial[] = [
+   656→  {
+   657→    name: "Dr. Sunita Rao",
+   658→    role: "Principal, Government PU College",
+   659→    quote: "Atom Foundation's coding program transformed our students' confidence. We now have a thriving coding club run entirely by students.",
+   660→    initials: "SR",
+   661→    color: "blue",
+   662→  },
+   663→  {
+   664→    name: "Manish Gupta",
+   665→    role: "CSR Head, GreenLeaf Corp",
+   666→    quote: "Their transparency and measurable outcomes made our CSR investment feel genuinely impactful. Best non-profit partnership we've had.",
+   667→    initials: "MG",
+   668→    color: "purple",
+   669→  },
+   670→  {
+   671→    name: "Kavya S",
+   672→    role: "Software Engineer, CloudForge",
+   673→    quote: "I mentor through Atom Foundation every weekend. The students' hunger to learn keeps me sharp and grounded.",
+   674→    initials: "KS",
+   675→    color: "green",
+   676→  },
+   677→];
+   678→
+   679→export type GalleryItem = {
+   680→  id: string;
+   681→  title: string;
+   682→  category: "Events" | "Training Sessions" | "Certificates" | "Community Outreach" | "Videos";
+   683→  gradient: string;
+   684→  span?: boolean;
+   685→};
+   686→
+   687→export const galleryItems: GalleryItem[] = [
+   688→  { id: "g1", title: "AI Bootcamp 2024", category: "Events", gradient: "from-blue-500 via-purple-500 to-pink-500", span: true },
+   689→  { id: "g2", title: "Women Digital Literacy Drive", category: "Community Outreach", gradient: "from-purple-500 to-pink-500" },
+   690→  { id: "g3", title: "Robotics Workshop", category: "Training Sessions", gradient: "from-green-500 to-emerald-500" },
+   691→  { id: "g4", title: "Cohort 7 Graduation", category: "Certificates", gradient: "from-blue-500 to-cyan-500" },
+   692→  { id: "g5", title: "Code for Kids Camp", category: "Training Sessions", gradient: "from-orange-500 to-red-500" },
+   693→  { id: "g6", title: "Hackathon 2024 Highlights", category: "Videos", gradient: "from-purple-500 to-blue-500", span: true },
+   694→  { id: "g7", title: "Rural Outreach, Tumkur", category: "Community Outreach", gradient: "from-green-500 to-teal-500" },
+   695→  { id: "g8", title: "Mock Interview Drive", category: "Events", gradient: "from-indigo-500 to-purple-500" },
+   696→];
+   697→
+   698→export type VolunteerRole = {
+   699→  title: string;
+   700→  commitment: string;
+   701→  description: string;
+   702→  icon: LucideIcon;
+   703→};
+   704→
+   705→export const volunteerRoles: VolunteerRole[] = [
+   706→  { title: "Trainer & Mentor", commitment: "4 hrs/week", description: "Lead sessions or mentor small groups of students in AI, software or career skills.", icon: GraduationCap },
+   707→  { title: "Developer Volunteer", commitment: "6 hrs/week", description: "Build and maintain our LMS, tools and open-source learning resources.", icon: Code2 },
+   708→  { title: "Community Organizer", commitment: "3 hrs/week", description: "Coordinate events, outreach drives and partnerships in your region.", icon: Users },
+   709→  { title: "Career Coach", commitment: "2 hrs/week", description: "Run mock interviews, resume reviews and LinkedIn workshops for learners.", icon: Briefcase },
+   710→];
+   711→
+   712→export const volunteerFaqs = [
+   713→  { q: "Do I need to be a tech expert to volunteer?", a: "Not at all. We have roles for trainers, mentors, organizers and coaches. We match your skills to where you can create the most impact." },
+   714→  { q: "How much time do I need to commit?", a: "Most roles need 2–6 hours per week. You can choose a commitment that fits your schedule, and we plan around your availability." },
+   715→  { q: "Is volunteering remote-friendly?", a: "Yes. Many of our mentoring, development and coaching roles are fully remote. Some community outreach roles are on-ground." },
+   716→  { q: "Will I get a certificate?", a: "Yes. Active volunteers receive an Atom Foundation volunteer certificate and a letter of appreciation after each cohort cycle." },
+   717→  { q: "Can my company volunteer as a team?", a: "Absolutely. We run structured corporate volunteering drives — reach out via the contact page and we'll design a program together." },
+   718→];
+   719→
+   720→export type DonationTier = {
+   721→  amount: number;
+   722→  title: string;
+   723→  impact: string;
+   724→  icon: LucideIcon;
+   725→  color: "blue" | "purple" | "green";
+   726→};
+   727→
+   728→export const donationTiers: DonationTier[] = [
+   729→  { amount: 500, title: "Spark", impact: "Funds a student's learning kit for one module", icon: Lightbulb, color: "blue" },
+   730→  { amount: 2500, title: "Ignite", impact: "Sponsors one woman's full digital literacy program", icon: HeartHandshake, color: "purple" },
+   731→  { amount: 10000, title: "Empower", impact: "Funds a full AI bootcamp seat with placement support", icon: Rocket, color: "green" },
+   732→  { amount: 50000, title: "Transform", impact: "Sponsors a community bootcamp for 25 learners", icon: Building2, color: "blue" },
+   733→];
+   734→
+   735→export const donationImpact: { amount: number; outcome: string }[] = [
+   736→  { amount: 500, outcome: "1 student learning kit" },
+   737→  { amount: 1500, outcome: "3 students trained for a month" },
+   738→  { amount: 5000, outcome: "2 women through digital literacy" },
+   739→  { amount: 15000, outcome: "1 full AI bootcamp seat + placement" },
+   740→  { amount: 50000, outcome: "25-learner community bootcamp" },
+   741→];
+   742→

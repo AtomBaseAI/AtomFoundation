@@ -1,0 +1,765 @@
+     1→"use client";
+     2→
+     3→import * as React from "react";
+     4→import Link from "next/link";
+     5→import { motion } from "framer-motion";
+     6→import {
+     7→  Target,
+     8→  Sparkles,
+     9→  Eye,
+    10→  Quote,
+    11→  ArrowRight,
+    12→  Download,
+    13→  FileText,
+    14→  ShieldCheck,
+    15→  BadgeCheck,
+    16→  FileCheck,
+    17→  HeartHandshake,
+    18→  Users,
+    19→  Handshake,
+    20→  TrendingUp,
+    21→  Building2,
+    22→  GraduationCap,
+    23→  Scale,
+    24→  Rocket,
+    25→  Lightbulb,
+    26→} from "lucide-react";
+    27→
+    28→import { PageHero } from "@/components/site/page-hero";
+    29→import { SectionHeading } from "@/components/site/section-heading";
+    30→import {
+    31→  Reveal,
+    32→  Stagger,
+    33→  StaggerItem,
+    34→  FadeIn,
+    35→} from "@/components/motion/reveal";
+    36→import { AnimatedCounter } from "@/components/motion/animated-counter";
+    37→import {
+    38→  AtomOrbits,
+    39→  FloatingParticles,
+    40→  NodeNetwork,
+    41→} from "@/components/site/svg-decorations";
+    42→import { Button } from "@/components/ui/button";
+    43→import { Card, CardContent } from "@/components/ui/card";
+    44→import { Badge } from "@/components/ui/badge";
+    45→import { Separator } from "@/components/ui/separator";
+    46→import {
+    47→  site,
+    48→  team,
+    49→  advisors,
+    50→  coreValues,
+    51→  impactMetrics,
+    52→  type TeamMember,
+    53→  type Advisor,
+    54→  type CoreValue,
+    55→} from "@/lib/data";
+    56→import { cn } from "@/lib/utils";
+    57→
+    58→/* ------------------------------------------------------------------ */
+    59→/*  Color helpers — map "blue" | "purple" | "green" to brand tokens    */
+    60→/* ------------------------------------------------------------------ */
+    61→
+    62→const colorText: Record<string, string> = {
+    63→  blue: "text-brand-blue",
+    64→  purple: "text-brand-purple",
+    65→  green: "text-brand-green",
+    66→};
+    67→
+    68→const colorBgSoft: Record<string, string> = {
+    69→  blue: "bg-brand-blue/10",
+    70→  purple: "bg-brand-purple/10",
+    71→  green: "bg-brand-green/10",
+    72→};
+    73→
+    74→const colorBgSofter: Record<string, string> = {
+    75→  blue: "bg-brand-blue/15",
+    76→  purple: "bg-brand-purple/15",
+    77→  green: "bg-brand-green/15",
+    78→};
+    79→
+    80→const colorBorder: Record<string, string> = {
+    81→  blue: "border-brand-blue/30",
+    82→  purple: "border-brand-purple/30",
+    83→  green: "border-brand-green/30",
+    84→};
+    85→
+    86→const avatarGradient: Record<string, string> = {
+    87→  blue: "from-brand-blue to-brand-purple",
+    88→  purple: "from-brand-purple to-brand-green",
+    89→  green: "from-brand-green to-brand-blue",
+    90→};
+    91→
+    92→const colorGlow: Record<string, string> = {
+    93→  blue: "shadow-glow-blue",
+    94→  purple: "shadow-glow-purple",
+    95→  green: "shadow-glow-blue",
+    96→};
+    97→
+    98→const colorBgSolid: Record<string, string> = {
+    99→  blue: "bg-brand-blue",
+   100→  purple: "bg-brand-purple",
+   101→  green: "bg-brand-green",
+   102→};
+   103→
+   104→/* ------------------------------------------------------------------ */
+   105→/*  Page                                                               */
+   106→/* ------------------------------------------------------------------ */
+   107→
+   108→export default function AboutPage() {
+   109→  const founder = team[0];
+   110→
+   111→  const storyStats = [
+   112→    {
+   113→      label: "Students Trained",
+   114→      value: impactMetrics[0].value,
+   115→      suffix: impactMetrics[0].suffix,
+   116→      icon: GraduationCap,
+   117→      color: "blue" as const,
+   118→    },
+   119→    {
+   120→      label: "Women Empowered",
+   121→      value: impactMetrics[1].value,
+   122→      suffix: impactMetrics[1].suffix,
+   123→      icon: HeartHandshake,
+   124→      color: "purple" as const,
+   125→    },
+   126→    {
+   127→      label: "Schools Reached",
+   128→      value: impactMetrics[2].value,
+   129→      suffix: impactMetrics[2].suffix,
+   130→      icon: Building2,
+   131→      color: "green" as const,
+   132→    },
+   133→  ];
+   134→
+   135→  const reports = [
+   136→    {
+   137→      year: "2024",
+   138→      title: "Annual Report 2024",
+   139→      summary:
+   140→        "A year of scaling partnerships — 12 new CSR & government collaborations, expansion to 32 districts, and 4,200+ women empowered.",
+   141→      size: "2.4 MB",
+   142→      pages: 36,
+   143→    },
+   144→    {
+   145→      year: "2023",
+   146→      title: "Annual Report 2023",
+   147→      summary:
+   148→        "Crossed 10,000 trained learners, launched the flagship AI track and reported a 65% placement rate for eligible graduates.",
+   149→      size: "2.1 MB",
+   150→      pages: 32,
+   151→    },
+   152→    {
+   153→      year: "2022",
+   154→      title: "Annual Report 2022",
+   155→      summary:
+   156→        "The bootcamp year — first AI Training cohort, women empowerment track in full swing and the shift back to hybrid delivery.",
+   157→      size: "1.8 MB",
+   158→      pages: 28,
+   159→    },
+   160→  ];
+   161→
+   162→  const transparencyStats = [
+   163→    {
+   164→      icon: TrendingUp,
+   165→      label: "Funds to Programs",
+   166→      value: "92%",
+   167→      caption: "Of every rupee goes to on-ground programs.",
+   168→      color: "blue" as const,
+   169→    },
+   170→    {
+   171→      icon: BadgeCheck,
+   172→      label: "80G & 12A Approved",
+   173→      value: "100%",
+   174→      caption: "Tax-exempt & legally registered non-profit.",
+   175→      color: "green" as const,
+   176→    },
+   177→    {
+   178→      icon: FileCheck,
+   179→      label: "Audited Annually",
+   180→      value: "Yearly",
+   181→      caption: "Independent financial audits published openly.",
+   182→      color: "purple" as const,
+   183→    },
+   184→    {
+   185→      icon: ShieldCheck,
+   186→      label: "Public Disclosure",
+   187→      value: "Open",
+   188→      caption: "Reports, impact data & finances on our website.",
+   189→      color: "blue" as const,
+   190→    },
+   191→  ];
+   192→
+   193→  return (
+   194→    <>
+   195→      {/* ============== HERO ============== */}
+   196→      <PageHero
+   197→        eyebrow="About Atom Foundation"
+   198→        title={
+   199→          <>
+   200→            We exist to make{" "}
+   201→            <span className="text-gradient-brand">future-ready skills</span>{" "}
+   202→            accessible to everyone
+   203→          </>
+   204→        }
+   205→        description={site.mission}
+   206→        breadcrumbs={[
+   207→          { label: "Home", href: "/" },
+   208→          { label: "About" },
+   209→        ]}
+   210→      >
+   211→        <div className="flex flex-wrap gap-3">
+   212→          <Button asChild size="lg" className="bg-gradient-brand">
+   213→            <Link href="/programs">
+   214→              Explore Programs <ArrowRight className="h-4 w-4" />
+   215→            </Link>
+   216→          </Button>
+   217→          <Button asChild size="lg" variant="outline">
+   218→            <Link href="/about#team">Meet the Team</Link>
+   219→          </Button>
+   220→        </div>
+   221→      </PageHero>
+   222→
+   223→      {/* ============== OUR STORY ============== */}
+   224→      <section className="relative overflow-hidden py-16 sm:py-20 lg:py-24">
+   225→        <div className="pointer-events-none absolute inset-0 dot-pattern opacity-40" />
+   226→        <div className="container relative mx-auto px-4">
+   227→          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+   228→            {/* Left: narrative */}
+   229→            <Reveal>
+   230→              <SectionHeading
+   231→                align="left"
+   232→                eyebrow={`Founded in ${site.founded}`}
+   233→                icon={Sparkles}
+   234→                title="A small workshop that became a movement"
+   235→                description={
+   236→                  <>
+   237→                    Atom Foundation began in {site.founded} with a single
+   238→                    coding workshop for 30 students in Bengaluru. What started
+   239→                    as a weekend experiment in equitable access quickly became
+   240→                    a full-scale mission to bring AI, software and digital
+   241→                    literacy to those who needed it most.
+   242→                  </>
+   243→                }
+   244→              />
+   245→              <div className="mt-6 space-y-4 text-base leading-relaxed text-muted-foreground">
+   246→                <p>
+   247→                  Over six years we have grown from a small volunteer group
+   248→                  into a recognised non-profit operating across{" "}
+   249→                  <span className="font-semibold text-foreground">
+   250→                    32 districts
+   251→                  </span>
+   252→                  , partnering with CSR companies, governments, NGOs and
+   253→                  technology leaders — all united by one belief: opportunity
+   254→                  should never be decided by geography, gender or income.
+   255→                </p>
+   256→                <p>
+   257→                  Today we run five flagship programs in AI training, software
+   258→                  development, career readiness, women empowerment and school
+   259→                  STEM — with measurable, audited outcomes and a community of
+   260→                  mentors who learned with us and now teach with us.
+   261→                </p>
+   262→              </div>
+   263→
+   264→              <div className="mt-8 flex flex-wrap gap-2">
+   265→                {[
+   266→                  "Equity-first",
+   267→                  "Community-driven",
+   268→                  "Audited & transparent",
+   269→                ].map((tag) => (
+   270→                  <Badge
+   271→                    key={tag}
+   272→                    variant="outline"
+   273→                    className="border-border/70 bg-background/60 px-3 py-1 text-xs"
+   274→                  >
+   275→                    {tag}
+   276→                  </Badge>
+   277→                ))}
+   278→              </div>
+   279→            </Reveal>
+   280→
+   281→            {/* Right: decorative card with orbits + stats */}
+   282→            <Reveal delay={0.15}>
+   283→              <div className="relative">
+   284→                <div className="absolute -inset-4 -z-10 rounded-3xl bg-gradient-brand-soft blur-2xl" />
+   285→                <Card className="overflow-hidden border-border/60 shadow-soft">
+   286→                  <div className="relative aspect-square w-full overflow-hidden bg-gradient-brand-soft">
+   287→                    <FloatingParticles count={10} />
+   288→                    <AtomOrbits className="h-full w-full p-8" />
+   289→                    <div className="pointer-events-none absolute inset-0 grid-pattern opacity-30" />
+   290→                    <div className="pointer-events-none absolute bottom-3 left-3 right-3 flex items-center gap-2 rounded-lg border border-border/60 bg-background/80 px-3 py-2 backdrop-blur">
+   291→                      <Sparkles className="h-4 w-4 text-brand-purple" />
+   292→                      <span className="text-xs font-medium text-foreground">
+   293→                        Building future-ready communities since {site.founded}
+   294→                      </span>
+   295→                    </div>
+   296→                  </div>
+   297→                  <CardContent className="grid grid-cols-3 gap-2 pt-0">
+   298→                    {storyStats.map((s) => {
+   299→                      const Icon = s.icon;
+   300→                      return (
+   301→                        <div
+   302→                          key={s.label}
+   303→                          className={cn(
+   304→                            "flex flex-col items-center gap-1 rounded-lg border p-3 text-center",
+   305→                            colorBorder[s.color],
+   306→                            colorBgSoft[s.color]
+   307→                          )}
+   308→                        >
+   309→                          <Icon className={cn("h-5 w-5", colorText[s.color])} />
+   310→                          <div
+   311→                            className={cn(
+   312→                              "font-poppins text-2xl font-800",
+   313→                              colorText[s.color]
+   314→                            )}
+   315→                          >
+   316→                            <AnimatedCounter
+   317→                              value={s.value}
+   318→                              suffix={s.suffix}
+   319→                              duration={2.2}
+   320→                            />
+   321→                          </div>
+   322→                          <div className="text-[11px] font-medium leading-tight text-muted-foreground">
+   323→                            {s.label}
+   324→                          </div>
+   325→                        </div>
+   326→                      );
+   327→                    })}
+   328→                  </CardContent>
+   329→                </Card>
+   330→              </div>
+   331→            </Reveal>
+   332→          </div>
+   333→        </div>
+   334→      </section>
+   335→
+   336→      {/* ============== MISSION & VISION ============== */}
+   337→      <section className="relative overflow-hidden border-y border-border/60 bg-gradient-brand-soft py-16 sm:py-20 lg:py-24">
+   338→        <div className="pointer-events-none absolute inset-0 grid-pattern opacity-30" />
+   339→        <div className="container relative mx-auto px-4">
+   340→          <SectionHeading
+   341→            eyebrow="Mission & Vision"
+   342→            icon={Target}
+   343→            title="Why we do what we do"
+   344→            description="Two statements that guide every program, partnership and decision at Atom Foundation."
+   345→          />
+   346→
+   347→          <div className="mt-12 grid gap-6 md:grid-cols-2">
+   348→            <Reveal>
+   349→              <div className="group relative h-full overflow-hidden rounded-2xl border border-brand-blue/30 bg-background/80 p-8 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-glow-blue">
+   350→                <div className="absolute right-0 top-0 h-32 w-32 -translate-y-1/3 translate-x-1/3 rounded-full bg-brand-blue/15 blur-2xl transition-all duration-500 group-hover:bg-brand-blue/25" />
+   351→                <div className="relative">
+   352→                  <div className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-brand text-white shadow-glow-blue">
+   353→                    <Target className="h-7 w-7" />
+   354→                  </div>
+   355→                  <div className="mb-2 flex items-center gap-2">
+   356→                    <Badge
+   357→                      variant="outline"
+   358→                      className="border-brand-blue/30 bg-brand-blue/10 text-brand-blue"
+   359→                    >
+   360→                      Our Mission
+   361→                    </Badge>
+   362→                  </div>
+   363→                  <h3 className="font-poppins text-2xl font-700">
+   364→                    What we do every day
+   365→                  </h3>
+   366→                  <p className="mt-3 text-base leading-relaxed text-muted-foreground">
+   367→                    {site.mission}
+   368→                  </p>
+   369→                </div>
+   370→              </div>
+   371→            </Reveal>
+   372→
+   373→            <Reveal delay={0.12}>
+   374→              <div className="group relative h-full overflow-hidden rounded-2xl border border-brand-purple/30 bg-background/80 p-8 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-glow-purple">
+   375→                <div className="absolute right-0 top-0 h-32 w-32 -translate-y-1/3 translate-x-1/3 rounded-full bg-brand-purple/15 blur-2xl transition-all duration-500 group-hover:bg-brand-purple/25" />
+   376→                <div className="relative">
+   377→                  <div className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-brand text-white shadow-glow-purple">
+   378→                    <Eye className="h-7 w-7" />
+   379→                  </div>
+   380→                  <div className="mb-2 flex items-center gap-2">
+   381→                    <Badge
+   382→                      variant="outline"
+   383→                      className="border-brand-purple/30 bg-brand-purple/10 text-brand-purple"
+   384→                    >
+   385→                      Our Vision
+   386→                    </Badge>
+   387→                  </div>
+   388→                  <h3 className="font-poppins text-2xl font-700">
+   389→                    The future we see
+   390→                  </h3>
+   391→                  <p className="mt-3 text-base leading-relaxed text-muted-foreground">
+   392→                    {site.vision}
+   393→                  </p>
+   394→                </div>
+   395→              </div>
+   396→            </Reveal>
+   397→          </div>
+   398→        </div>
+   399→      </section>
+   400→
+   401→      {/* ============== CORE VALUES ============== */}
+   402→      <section className="py-16 sm:py-20 lg:py-24">
+   403→        <div className="container mx-auto px-4">
+   404→          <SectionHeading
+   405→            eyebrow="Core Values"
+   406→            icon={HeartHandshake}
+   407→            title="The principles behind every program"
+   408→            description="Six values that shape how we teach, partner and grow with the communities we serve."
+   409→          />
+   410→
+   411→          <Stagger className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+   412→            {coreValues.map((value: CoreValue) => {
+   413→              const Icon = value.icon;
+   414→              return (
+   415→                <StaggerItem key={value.title}>
+   416→                  <div
+   417→                    className={cn(
+   418→                      "group relative h-full overflow-hidden rounded-2xl border bg-card p-6 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-soft",
+   419→                      colorBorder[value.color]
+   420→                    )}
+   421→                  >
+   422→                    <div
+   423→                      className={cn(
+   424→                        "absolute -right-8 -top-8 h-24 w-24 rounded-full blur-2xl transition-all duration-500 group-hover:scale-150",
+   425→                        colorBgSofter[value.color]
+   426→                      )}
+   427→                    />
+   428→                    <div className="relative">
+   429→                      <div
+   430→                        className={cn(
+   431→                          "inline-flex h-12 w-12 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110",
+   432→                          colorBgSoft[value.color]
+   433→                        )}
+   434→                      >
+   435→                        <Icon className={cn("h-6 w-6", colorText[value.color])} />
+   436→                      </div>
+   437→                      <h3 className="mt-5 font-poppins text-lg font-700">
+   438→                        {value.title}
+   439→                      </h3>
+   440→                      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+   441→                        {value.description}
+   442→                      </p>
+   443→                    </div>
+   444→                  </div>
+   445→                </StaggerItem>
+   446→              );
+   447→            })}
+   448→          </Stagger>
+   449→        </div>
+   450→      </section>
+   451→
+   452→      {/* ============== FOUNDER MESSAGE ============== */}
+   453→      <section className="relative overflow-hidden border-y border-border/60 bg-gradient-brand-soft py-16 sm:py-20 lg:py-24">
+   454→        <div className="pointer-events-none absolute inset-0 dot-pattern opacity-30" />
+   455→        <div className="pointer-events-none absolute -left-20 top-1/3 h-72 w-72 rounded-full bg-brand-blue/15 blur-3xl" />
+   456→        <div className="pointer-events-none absolute -right-20 bottom-0 h-80 w-80 rounded-full bg-brand-purple/15 blur-3xl" />
+   457→        <div className="container relative mx-auto px-4">
+   458→          <Reveal>
+   459→            <div className="relative mx-auto max-w-4xl overflow-hidden rounded-3xl border border-border/60 bg-background/90 p-8 shadow-soft backdrop-blur sm:p-12">
+   460→              <Quote className="absolute -top-4 left-6 h-20 w-20 text-brand-blue/10" />
+   461→              <div className="relative">
+   462→                <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center">
+   463→                  <div className="relative">
+   464→                    <div
+   465→                      className={cn(
+   466→                        "grid h-20 w-20 place-items-center rounded-2xl bg-gradient-to-br font-poppins text-2xl font-800 text-white shadow-glow-blue",
+   467→                        avatarGradient[founder.color]
+   468→                      )}
+   469→                    >
+   470→                      {founder.initials}
+   471→                    </div>
+   472→                    <span className="absolute -bottom-1 -right-1 grid h-7 w-7 place-items-center rounded-full bg-background shadow-soft">
+   473→                      <Sparkles className="h-3.5 w-3.5 text-brand-purple" />
+   474→                    </span>
+   475→                  </div>
+   476→                  <div>
+   477→                    <div className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">
+   478→                      Founder&apos;s Message
+   479→                    </div>
+   480→                    <h3 className="mt-1 font-poppins text-2xl font-700">
+   481→                      {founder.name}
+   482→                    </h3>
+   483→                    <p className="text-sm text-muted-foreground">{founder.role}</p>
+   484→                  </div>
+   485→                </div>
+   486→
+   487→                <Separator className="my-6" />
+   488→
+   489→                <p className="font-poppins text-lg font-500 italic leading-relaxed text-foreground sm:text-xl">
+   490→                  &ldquo;When we taught our first 30 students in{" "}
+   491→                  {site.founded}, we weren&apos;t building an organization — we
+   492→                  were answering a simple question:{" "}
+   493→                  <span className="text-gradient-brand not-italic font-600">
+   494→                    what if every student and every woman could access the
+   495→                    skills shaping our future?
+   496→                  </span>{" "}
+   497→                  Six years later, that question still drives us. Every cohort,
+   498→                  every partnership, every line of code we teach is a small step
+   499→                  toward a more equitable future. We have only just begun.&rdquo;
+   500→                </p>
+   501→
+   502→                <div className="mt-8 flex items-end justify-between">
+   503→                  <div>
+   504→                    <div className="font-poppins text-base font-700 text-gradient-brand">
+   505→                      {founder.name}
+   506→                    </div>
+   507→                    <div className="text-xs text-muted-foreground">
+   508→                      {founder.role}, Atom Foundation
+   509→                    </div>
+   510→                  </div>
+   511→                  <div className="hidden font-poppins text-5xl font-800 text-brand-blue/10 sm:block">
+   512→                    {site.founded}
+   513→                  </div>
+   514→                </div>
+   515→              </div>
+   516→            </div>
+   517→          </Reveal>
+   518→        </div>
+   519→      </section>
+   520→
+   521→      {/* ============== TEAM ============== */}
+   522→      <section id="team" className="scroll-mt-24 py-16 sm:py-20 lg:py-24">
+   523→        <div className="container mx-auto px-4">
+   524→          <SectionHeading
+   525→            eyebrow="Our Team"
+   526→            icon={Users}
+   527→            title="The people behind the mission"
+   528→            description="Educators, engineers and community organizers who turn our mission into measurable impact every single day."
+   529→          />
+   530→
+   531→          <Stagger className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+   532→            {team.map((member: TeamMember) => (
+   533→              <StaggerItem key={member.name}>
+   534→                <div className="group h-full overflow-hidden rounded-2xl border border-border/60 bg-card p-6 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-soft">
+   535→                  <div className="flex items-start gap-4">
+   536→                    <div
+   537→                      className={cn(
+   538→                        "grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-gradient-to-br font-poppins text-lg font-800 text-white transition-transform duration-300 group-hover:scale-105",
+   539→                        avatarGradientember.color]
+   540→                      )}
+   541→                    >
+   542→                      {member.initials}
+   543→                    </div>
+   544→                    <div className="min-w-0">
+   545→                      <h3 className="truncate font-poppins text-base font-700">
+   546→                        {member.name}
+   547→                      </h3>
+   548→                      <p
+   549→                        className={cn(
+   550→                          "text-sm font-medium",
+   551→                          colorTextember.color]
+   552→                        )}
+   553→                      >
+   554→                        {member.role}
+   555→                      </p>
+   556→                    </div>
+   557→                  </div>
+   558→                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+   559→                    {member.bio}
+   560→                  </p>
+   561→                  <div
+   562→                    className={cn(
+   563→                      "mt-4 h-0.5 w-12 origin-left scale-x-100 transition-transform duration-300 group-hover:scale-x-150",
+   564→                      colorBgSolidember.color]
+   565→                    )}
+   566→                  />
+   567→                </div>
+   568→              </StaggerItem>
+   569→            ))}
+   570→          </Stagger>
+   571→        </div>
+   572→      </section>
+   573→
+   574→      {/* ============== ADVISORY BOARD ============== */}
+   575→      <section className="relative overflow-hidden border-y border-border/60 bg-gradient-brand-soft py-16 sm:py-20 lg:py-24">
+   576→        <div className="pointer-events-none absolute inset-0 grid-pattern opacity-25" />
+   577→        <div className="container relative mx-auto px-4">
+   578→          <SectionHeading
+   579→            eyebrow="Advisory Board"
+   580→            icon={Handshake}
+   581→            title="Guided by experience, grounded in impact"
+   582→            description="Leaders from academia, industry, policy and community development who advise our strategy."
+   583→          />
+   584→
+   585→          <Stagger className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+   586→            {advisors.map((adv: Advisor) => (
+   587→              <StaggerItem key={adv.name}>
+   588→                <div className="group flex h-full flex-col items-center rounded-2xl border border-border/60 bg-background/80 p-6 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-soft">
+   589→                  <div className="grid h-16 w-16 place-items-center rounded-full bg-gradient-brand font-poppins text-lg font-800 text-white shadow-glow-blue transition-transform duration-300 group-hover:scale-105">
+   590→                    {adv.initials}
+   591→                  </div>
+   592→                  <h3 className="mt-4 font-poppins text-base font-700">
+   593→                    {adv.name}
+   594→                  </h3>
+   595→                  <p className="mt-1 text-sm font-medium text-primary">
+   596→                    {adv.role}
+   597→                  </p>
+   598→                  <p className="mt-1 text-xs text-muted-foreground">{adv.org}</p>
+   599→                </div>
+   600→              </StaggerItem>
+   601→            ))}
+   602→          </Stagger>
+   603→        </div>
+   604→      </section>
+   605→
+   606→      {/* ============== ANNUAL REPORTS / TRANSPARENCY ============== */}
+   607→      <section id="reports" className="scroll-mt-24 py-16 sm:py-20 lg:py-24">
+   608→        <div className="container mx-auto px-4">
+   609→          <SectionHeading
+   610→            eyebrow="Annual Reports & Transparency"
+   611→            icon={ShieldCheck}
+   612→            title="Trust, built on open books"
+   613→            description="We believe every rupee and every outcome should be visible. Download our annual reports and audit summaries below."
+   614→          />
+   615→
+   616→          {/* Transparency stats strip */}
+   617→          <Reveal>
+   618→            <div className="mt-12 grid gap-4 rounded-2xl border border-border/60 bg-gradient-brand-soft p-6 sm:grid-cols-2 lg:grid-cols-4">
+   619→              {transparencyStats.map((stat) => {
+   620→                const Icon = stat.icon;
+   621→                return (
+   622→                  <div
+   623→                    key={stat.label}
+   624→                    className="flex items-start gap-3 rounded-xl bg-background/70 p-4"
+   625→                  >
+   626→                    <div
+   627→                      className={cn(
+   628→                        "inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg",
+   629→                        colorBgSoft[stat.color]
+   630→                      )}
+   631→                    >
+   632→                      <Icon className={cn("h-5 w-5", colorText[stat.color])} />
+   633→                    </div>
+   634→                    <div>
+   635→                      <div className="font-poppins text-xl font-800 text-foreground">
+   636→                        {stat.value}
+   637→                      </div>
+   638→                      <div className="text-xs font-semibold text-foreground">
+   639→                        {stat.label}
+   640→                      </div>
+   641→                      <div className="mt-0.5 text-xs text-muted-foreground">
+   642→                        {stat.caption}
+   643→                      </div>
+   644→                    </div>
+   645→                  </div>
+   646→                );
+   647→              })}
+   648→            </div>
+   649→          </Reveal>
+   650→
+   651→          {/* Report cards */}
+   652→          <Stagger className="mt-8 grid gap-6 md:grid-cols-3">
+   653→            {reports.map((r) => (
+   654→              <StaggerItem key={r.year}>
+   655→                <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border/60 bg-card p-6 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-soft">
+   656→                  <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-brand-blue/10 blur-2xl transition-all duration-500 group-hover:bg-brand-purple/20" />
+   657→                  <div className="relative flex items-start justify-between">
+   658→                    <div className="inline-flex h-14 w-12 items-center justify-center rounded-lg bg-brand-blue/10 text-brand-blue">
+   659→                      <FileText className="h-7 w-7" />
+   660→                    </div>
+   661→                    <Badge
+   662→                      variant="outline"
+   663→                      className="border-brand-purple/30 bg-brand-purple/10 text-brand-purple"
+   664→                    >
+   665→                      {r.year}
+   666→                    </Badge>
+   667→                  </div>
+   668→                  <h3 className="relative mt-4 font-poppins text-lg font-700">
+   669→                    {r.title}
+   670→                  </h3>
+   671→                  <p className="relative mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+   672→                    {r.summary}
+   673→                  </p>
+   674→                  <div className="relative mt-4 flex items-center justify-between text-xs text-muted-foreground">
+   675→                    <span>PDF · {r.pages} pages · {r.size}</span>
+   676→                  </div>
+   677→                  <Button
+   678→                    asChild
+   679→                    variant="outline"
+   680→                    size="sm"
+   681→                    className="relative mt-4 w-full"
+   682→                  >
+   683→                    <Link href="#">
+   684→                      <Download className="h-4 w-4" /> Download PDF
+   685→                    </Link>
+   686→                  </Button>
+   687→                </div>
+   688→              </StaggerItem>
+   689→            ))}
+   690→          </Stagger>
+   691→
+   692→          <FadeIn className="mt-8 text-center">
+   693→            <p className="text-sm text-muted-foreground">
+   694→              Need a detailed financial breakdown or audit statement?{" "}
+   695→              <Link
+   696→                href="/contact"
+   697→                className="font-semibold text-primary underline-offset-4 hover:underline"
+   698→              >
+   699→                Request it from our team →
+   700→              </Link>
+   701→            </p>
+   702→          </FadeIn>
+   703→        </div>
+   704→      </section>
+   705→
+   706→      {/* ============== CTA ============== */}
+   707→      <section className="relative overflow-hidden py-16 sm:py-20">
+   708→        <div className="container mx-auto px-4">
+   709→          <Reveal>
+   710→            <div className="relative overflow-hidden rounded-3xl bg-gradient-brand p-8 text-white shadow-glow-blue sm:p-12 lg:p-16">
+   711→              <div className="pointer-events-none absolute inset-0 grid-pattern opacity-20" />
+   712→              <div className="pointer-events-none absolute -right-12 -top-12 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
+   713→              <div className="pointer-events-none absolute -bottom-16 -left-12 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
+   714→              <NodeNetwork className="pointer-events-none absolute right-0 top-0 hidden h-48 w-72 opacity-30 lg:block" />
+   715→
+   716→              <div className="relative max-w-2xl">
+   717→                <h2 className="font-poppins text-3xl font-800 tracking-tight sm:text-4xl">
+   718→                  Partner, volunteer or donate — build the future with us.
+   719→                </h2>
+   720→                <p className="mt-4 text-base text-white/85 sm:text-lg">
+   721→                  Whether you are a CSR team, a technologist who wants to
+   722→                  mentor, or someone who simply believes in equitable access —
+   723→                  there is a place for you at Atom Foundation.
+   724→                </p>
+   725→                <div className="mt-8 flex flex-wrap gap-3">
+   726→                  <Button
+   727→                    asChild
+   728→                    size="lg"
+   729→                    variant="secondary"
+   730→                    className="bg-white text-primary hover:bg-white/90"
+   731→                  >
+   732→                    <Link href="/partners">
+   733→                      <Handshake className="h-4 w-4" /> Partner With Us
+   734→                    </Link>
+   735→                  </Button>
+   736→                  <Button
+   737→                    asChild
+   738→                    size="lg"
+   739→                    variant="outline"
+   740→                    className="border-white/40 bg-transparent text-white hover:bg-white/10 hover:text-white"
+   741→                  >
+   742→                    <Link href="/volunteer">
+   743→                      <Users className="h-4 w-4" /> Become a Volunteer
+   744→                    </Link>
+   745→                  </Button>
+   746→                  <Button
+   747→                    asChild
+   748→                    size="lg"
+   749→                    variant="outline"
+   750→                    className="border-white/40 bg-transparent text-white hover:bg-white/10 hover:text-white"
+   751→                  >
+   752→                    <Link href="/donate">
+   753→                      <HeartHandshake className="h-4 w-4" /> Donate
+   754→                    </Link>
+   755→                  </Button>
+   756→                </div>
+   757→              </div>
+   758→            </div>
+   759→          </Reveal>
+   760→        </div>
+   761→      </section>
+   762→    </>
+   763→  );
+   764→}
+   765→
