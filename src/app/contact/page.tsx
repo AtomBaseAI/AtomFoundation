@@ -67,7 +67,7 @@ const contactFaqs = [
     a: "Visit our Programs page, pick the track you're interested in, and apply through the program card. You can also write to us using the contact form with the subject 'Programs & Admissions' — our team will share the next batch schedule and application steps.",
   },
   {
-    q: "Can my organization partner with Atom Foundation?",
+    q: "Can my organization partner with Atom Arc Foundation?",
     a: "Absolutely. We work with CSR teams, educational institutions, NGOs, government bodies and technology companies. Visit our Partners page and submit a partnership inquiry, or use the contact form with the subject 'Partnership'.",
   },
   {
@@ -75,11 +75,11 @@ const contactFaqs = [
     a: "We're always looking for trainers, mentors, developers, organizers and career coaches. Head to the Volunteer page to choose a role and apply — most roles need 2–6 hours per week and many are fully remote.",
   },
   {
-    q: "Can my company partner with Atom Foundation?",
+    q: "Can my company partner with Atom Arc Foundation?",
     a: "Absolutely. We run structured CSR, government and institutional partnerships — from co-branded programs and bootcamps to scholarship funds and community drives. Use the form above with subject 'Partnership' or visit our Partners page to learn more.",
   },
   {
-    q: "Do you offer programs outside Bengaluru?",
+    q: "Do you offer programs outside Coimbatore?",
     a: "Yes. We currently operate across 32 districts in India, in both rural and semi-urban regions. Many programs are also delivered online and can be joined from anywhere. Reach out and we'll help you find the right opportunity.",
   },
 ];
@@ -107,7 +107,7 @@ const contactCards = [
     value: site.address,
     href: "#map",
     color: "green" as const,
-    note: "Indiranagar, Bengaluru",
+    note: "Ganapathy, Coimbatore",
   },
 ];
 
@@ -376,7 +376,7 @@ function MapPlaceholder() {
                   <Building2 className="h-4 w-4" />
                 </div>
                 <div className="min-w-0">
-                  <p className="font-poppins text-sm font-700">Atom Foundation HQ</p>
+                  <p className="font-poppins text-sm font-700">Atom Arc Foundation HQ</p>
                   <p className="text-xs text-muted-foreground">{site.address}</p>
                 </div>
               </div>
@@ -487,7 +487,7 @@ export default function ContactPage() {
         <div className="container mx-auto px-4">
           <SectionHeading
             eyebrow="Find Us"
-            title="Our Bengaluru headquarters"
+            title="Our Coimbatore headquarters"
             description="Drop by for a coffee or schedule a visit — our doors are open to partners, volunteers and the community."
             icon={MapPin}
           />

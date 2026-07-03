@@ -725,7 +725,7 @@ function TestimonialsSection() {
         <SectionHeading
           eyebrow="Testimonials"
           title={<>What our community <span className="text-gradient-brand">says about us</span></>}
-          description="Principals, CSR heads and mentors share why they believe in Atom Foundation."
+          description="Principals, CSR heads and mentors share why they believe in Atom Arc Foundation."
           icon={Quote}
         />
         <Stagger className="mt-12 grid gap-6 md:grid-cols-3" stagger={0.12}>

@@ -57,7 +57,7 @@ export function SiteNavbar() {
       )}
     >
       <div className="container mx-auto flex h-16 items-center justify-between px-4 lg:h-20">
-        <Link href="/" className="group flex items-center gap-2.5" aria-label="Atom Foundation home">
+        <Link href="/" className="group flex items-center gap-2.5" aria-label="Atom Arc Foundation home">
           <motion.span
             initial={{ rotate: -20, scale: 0.8 }}
             animate={{ rotate: 0, scale: 1 }}
@@ -73,7 +73,7 @@ export function SiteNavbar() {
           </motion.span>
           <span className="flex flex-col leading-none">
             <span className="font-poppins text-lg font-700 tracking-tight">
-              Atom<span className="text-gradient-brand"> Foundation</span>
+              Atom<span className="text-gradient-brand"> Arc Foundation</span>
             </span>
             <span className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
               Tech · Education · Impact
@@ -174,7 +174,7 @@ export function SiteNavbar() {
                   <span className="grid h-9 w-9 place-items-center rounded-lg bg-gradient-brand text-white">
                     <Atom className="h-5 w-5" />
                   </span>
-                  <span className="font-poppins font-700">Atom Foundation</span>
+                  <span className="font-poppins font-700">Atom Arc Foundation</span>
                 </SheetTitle>
               </SheetHeader>
               <div className="px-3 pb-28 pt-2">

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
-import { Toaster } from "@/components/ui/toaster";
 import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/site/theme-provider";
 import { SiteNavbar } from "@/components/site/navbar";
@@ -22,11 +21,12 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Atom Foundation — Building Future-Ready Communities Through Technology & Education",
+  title: "Atom Arc Foundation — Building Future-Ready Communities Through Technology & Education",
   description:
-    "Atom Foundation empowers students and women with future-ready technology skills through AI training, software development, career readiness and women empowerment programs.",
+    "Atom Arc Foundation (Atom Academic Research & Collaboration Foundation) empowers students and women with future-ready technology skills through AI training, software development, career readiness and women empowerment programs.",
   keywords: [
-    "Atom Foundation",
+    "Atom Arc Foundation",
+    "Atom Academic Research & Collaboration Foundation",
     "AI training",
     "software development",
     "women empowerment",
@@ -36,17 +36,17 @@ export const metadata: Metadata = {
     "non-profit India",
     "future-ready skills",
   ],
-  authors: [{ name: "Atom Foundation" }],
+  authors: [{ name: "Atom Arc Foundation" }],
   openGraph: {
-    title: "Atom Foundation",
+    title: "Atom Arc Foundation",
     description:
       "Empowering every student and woman with future-ready technology skills for sustainable careers and inclusive growth.",
-    siteName: "Atom Foundation",
+    siteName: "Atom Arc Foundation",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Atom Foundation",
+    title: "Atom Arc Foundation",
     description:
       "Empowering every student and woman with future-ready technology skills for sustainable careers and inclusive growth.",
   },
@@ -74,7 +74,6 @@ export default function RootLayout({
             <SiteFooter />
           </div>
           <ChatbotWidget />
-          <Toaster />
           <SonnerToaster richColors position="top-center" />
         </ThemeProvider>
       </body>

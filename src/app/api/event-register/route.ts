@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/lib/db";
+import { store } from "@/lib/store";
 
 export async function POST(req: NextRequest) {
   try {
@@ -11,16 +11,14 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
-    await db.eventRegistration.create({
-      data: {
-        eventId: String(eventId).slice(0, 60),
-        name: String(name).slice(0, 120),
-        email: String(email).slice(0, 160),
-        phone: phone ? String(phone).slice(0, 20) : null,
-        role: role ? String(role).slice(0, 60) : null,
-      },
+    const entry = store.addEventRegistration({
+      eventId: String(eventId).slice(0, 60),
+      name: String(name).slice(0, 120),
+      email: String(email).slice(0, 160),
+      phone: phone ? String(phone).slice(0, 20) : null,
+      role: role ? String(role).slice(0, 60) : null,
     });
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({ ok: true, id: entry.id });
   } catch (err) {
     console.error("Event registration error:", err);
     return NextResponse.json({ error: "Something went wrong." }, { status: 500 });

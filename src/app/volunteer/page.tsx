@@ -99,7 +99,7 @@ const benefitCards: {
     icon: Award,
     title: "Get Certified",
     description:
-      "Active volunteers earn an Atom Foundation volunteer certificate and a letter of appreciation after each cohort cycle.",
+      "Active volunteers earn an Atom Arc Foundation volunteer certificate and a letter of appreciation after each cohort cycle.",
     color: "blue",
   },
 ];
@@ -248,7 +248,7 @@ export default function VolunteerPage() {
             Give your time, <span className="text-gradient-brand">change a future</span>
           </>
         }
-        description="Mentor a learner, build tools that scale, run a community drive — whatever your skill, there is a place for you at Atom Foundation."
+        description="Mentor a learner, build tools that scale, run a community drive — whatever your skill, there is a place for you at Atom Arc Foundation."
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Volunteer" },
@@ -738,7 +738,7 @@ export default function VolunteerPage() {
                 </h2>
                 <p className="mx-auto mt-3 max-w-2xl text-white/90">
                   CSR teams, NGOs, educational institutions and government bodies —
-                  partner with Atom Foundation to scale community impact together.
+                  partner with Atom Arc Foundation to scale community impact together.
                 </p>
                 <div className="mt-7 flex flex-wrap justify-center gap-3">
                   <Button

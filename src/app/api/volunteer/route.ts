@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/lib/db";
+import { store } from "@/lib/store";
 
 export async function POST(req: NextRequest) {
   try {
@@ -11,19 +11,17 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
-    await db.volunteer.create({
-      data: {
-        name: String(name).slice(0, 120),
-        email: String(email).slice(0, 160),
-        phone: String(phone).slice(0, 20),
-        role: String(role).slice(0, 120),
-        location: location ? String(location).slice(0, 120) : null,
-        skills: skills ? String(skills).slice(0, 400) : null,
-        availability: availability ? String(availability).slice(0, 120) : null,
-        motivation: motivation ? String(motivation).slice(0, 2000) : null,
-      },
+    const entry = store.addVolunteer({
+      name: String(name).slice(0, 120),
+      email: String(email).slice(0, 160),
+      phone: String(phone).slice(0, 20),
+      role: String(role).slice(0, 120),
+      location: location ? String(location).slice(0, 120) : null,
+      skills: skills ? String(skills).slice(0, 400) : null,
+      availability: availability ? String(availability).slice(0, 120) : null,
+      motivation: motivation ? String(motivation).slice(0, 2000) : null,
     });
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({ ok: true, id: entry.id });
   } catch (err) {
     console.error("Volunteer error:", err);
     return NextResponse.json({ error: "Something went wrong." }, { status: 500 });

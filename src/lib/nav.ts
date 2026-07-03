@@ -10,7 +10,6 @@ import {
   HeartHandshake,
   Image as ImageIcon,
   Building2,
-  Newspaper,
   Phone,
   type LucideIcon,
 } from "lucide-react";
@@ -37,7 +36,7 @@ export const siteNav: NavItem[] = [
       {
         title: "Our Story",
         href: "/about",
-        description: "Mission, vision, values and the team behind Atom Foundation.",
+        description: "Mission, vision, values and the team behind Atom Arc Foundation.",
         icon: BookOpen,
       },
       {
@@ -70,7 +69,6 @@ export const siteNav: NavItem[] = [
     ],
   },
   { title: "Events", href: "/events" },
-  { title: "Blog", href: "/blog" },
   { title: "Contact", href: "/contact" },
 ];
 
@@ -82,7 +80,6 @@ export const footerNav: { title: string; links: NavChild[] }[] = [
       { title: "Our Team", href: "/about#team" },
       { title: "Annual Reports", href: "/about#reports" },
       { title: "Partners", href: "/partners" },
-      { title: "Blog", href: "/blog" },
     ],
   },
   {

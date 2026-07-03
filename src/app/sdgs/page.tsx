@@ -71,7 +71,7 @@ export default function SdgsPage() {
             <span className="text-gradient-brand">UN Global Goals</span>
           </>
         }
-        description="Atom Foundation aligns its programs, partnerships and measurement framework with the United Nations Sustainable Development Goals — turning local action into globally accountable impact."
+        description="Atom Arc Foundation aligns its programs, partnerships and measurement framework with the United Nations Sustainable Development Goals — turning local action into globally accountable impact."
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "SDGs" },
@@ -106,7 +106,7 @@ export default function SdgsPage() {
               />
               <div className="mt-6 space-y-4 text-base leading-relaxed text-muted-foreground">
                 <p>
-                  Every Atom Foundation program maps to one or more SDGs. Our
+                  Every Atom Arc Foundation program maps to one or more SDGs. Our
                   AI, software and career tracks advance{" "}
                   <span className="font-semibold text-foreground">
                     Goal 4 (Quality Education)
@@ -218,7 +218,7 @@ export default function SdgsPage() {
             eyebrow="The goals we advance"
             icon={Target}
             title="Six SDGs at the core of our work"
-            description="Each card maps an SDG to the concrete contribution Atom Foundation makes — and the measurable highlights behind it."
+            description="Each card maps an SDG to the concrete contribution Atom Arc Foundation makes — and the measurable highlights behind it."
           />
 
           <Stagger className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">

@@ -199,7 +199,7 @@ export default function AboutPage() {
     <>
       {/* ============== HERO ============== */}
       <PageHero
-        eyebrow="About Atom Foundation"
+        eyebrow="About Atom Arc Foundation"
         title={
           <>
             We exist to make{" "}
@@ -239,8 +239,8 @@ export default function AboutPage() {
                 title="A small workshop that became a movement"
                 description={
                   <>
-                    Atom Foundation began in {site.founded} with a single
-                    coding workshop for 30 students in Bengaluru. What started
+                    Atom Arc Foundation began in {site.founded} with a single
+                    coding workshop for 30 students in Coimbatore. What started
                     as a weekend experiment in equitable access quickly became
                     a full-scale mission to bring AI, software and digital
                     literacy to those who needed it most.
@@ -350,7 +350,7 @@ export default function AboutPage() {
             eyebrow="Mission & Vision"
             icon={Target}
             title="Why we do what we do"
-            description="Two statements that guide every program, partnership and decision at Atom Foundation."
+            description="Two statements that guide every program, partnership and decision at Atom Arc Foundation."
           />
 
           <div className="mt-12 grid gap-6 md:grid-cols-2">
@@ -511,7 +511,7 @@ export default function AboutPage() {
                       {founder.name}
                     </div>
                     <div className="text-xs text-muted-foreground">
-                      {founder.role}, Atom Foundation
+                      {founder.role}, Atom Arc Foundation
                     </div>
                   </div>
                   <div className="hidden font-poppins text-5xl font-800 text-brand-blue/10 sm:block">
@@ -749,7 +749,7 @@ export default function AboutPage() {
                 <p className="mt-4 text-base text-white/85 sm:text-lg">
                   Whether you are a CSR team, a technologist who wants to
                   mentor, or someone who simply believes in equitable access —
-                  there is a place for you at Atom Foundation.
+                  there is a place for you at Atom Arc Foundation.
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">
                   <Button

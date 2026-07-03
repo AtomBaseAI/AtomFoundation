@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/lib/db";
+import { store } from "@/lib/store";
 
 export async function POST(req: NextRequest) {
   try {
@@ -11,16 +11,14 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
-    await db.contactMessage.create({
-      data: {
-        name: String(name).slice(0, 120),
-        email: String(email).slice(0, 160),
-        phone: phone ? String(phone).slice(0, 20) : null,
-        subject: String(subject).slice(0, 160),
-        message: String(message).slice(0, 4000),
-      },
+    const entry = store.addContactMessage({
+      name: String(name).slice(0, 120),
+      email: String(email).slice(0, 160),
+      phone: phone ? String(phone).slice(0, 20) : null,
+      subject: String(subject).slice(0, 160),
+      message: String(message).slice(0, 4000),
     });
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({ ok: true, id: entry.id });
   } catch (err) {
     console.error("Contact error:", err);
     return NextResponse.json({ error: "Something went wrong." }, { status: 500 });

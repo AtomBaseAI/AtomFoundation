@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/lib/db";
+import { store } from "@/lib/store";
 
 export async function POST(req: NextRequest) {
   try {
@@ -7,12 +7,8 @@ export async function POST(req: NextRequest) {
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return NextResponse.json({ error: "A valid email is required." }, { status: 400 });
     }
-    await db.newsletterSubscriber.upsert({
-      where: { email },
-      update: {},
-      create: { email },
-    });
-    return NextResponse.json({ ok: true });
+    const entry = store.addNewsletterSubscriber(String(email).slice(0, 160));
+    return NextResponse.json({ ok: true, id: entry.id });
   } catch (err) {
     console.error("Newsletter error:", err);
     return NextResponse.json({ error: "Something went wrong." }, { status: 500 });

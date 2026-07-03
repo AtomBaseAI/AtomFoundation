@@ -613,7 +613,7 @@ export default function PartnersPage() {
         <div className="container mx-auto px-4">
           <SectionHeading
             eyebrow="Why Partner With Us"
-            title="Three reasons organizations choose Atom Foundation"
+            title="Three reasons organizations choose Atom Arc Foundation"
             description="We bring delivery rigor, measurable outcomes and reporting transparency — the foundations of a partnership that lasts."
             icon={Sparkles}
           />

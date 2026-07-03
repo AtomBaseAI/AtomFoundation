@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 /**
- * SVG Illustrations library for Atom Foundation.
+ * SVG Illustrations library for Atom Arc Foundation.
  * Each illustration uses the brand palette (blue/purple/green) via CSS variables
  * so they adapt to light/dark themes. All are decorative (aria-hidden).
  */
@@ -692,51 +692,6 @@ export function EventIllustration({ className }: IllustrationProps) {
         style={{ transformOrigin: "175px 145px" }}
       />
       <path d="M170 138 L170 152 L183 145 Z" fill="var(--card)" />
-    </svg>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* 15. Blog / writing — notebook with pen                              */
-/* ------------------------------------------------------------------ */
-
-export function BlogIllustration({ className }: IllustrationProps) {
-  return (
-    <svg viewBox="0 0 240 200" className={cn("h-full w-full", className)} fill="none" aria-hidden>
-      <Defs id="bl" variant="purple" />
-      <ellipse cx="120" cy="110" rx="100" ry="76" fill="var(--brand-purple)" fillOpacity="0.08" />
-      {/* notebook */}
-      <motion.g
-        initial={{ rotate: -6, y: 12, opacity: 0 }}
-        whileInView={{ rotate: -6, y: 0, opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-      >
-        <rect x="70" y="55" width="90" height="110" rx="6" fill="var(--card)" stroke="url(#bl-g)" strokeWidth="1.5" />
-        <rect x="70" y="55" width="14" height="110" fill="url(#bl-g)" />
-        {[0, 1, 2, 3, 4].map((i) => (
-          <motion.rect
-            key={i} x="95" y={75 + i * 16} width={i === 2 ? 50 : 55} height="5" rx="2.5"
-            fill="var(--brand-purple)" fillOpacity={0.4 + i * 0.05}
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 + i * 0.08 }}
-            style={{ transformOrigin: "95px" }}
-          />
-        ))}
-      </motion.g>
-      {/* pen */}
-      <motion.g
-        initial={{ rotate: 30, x: 10, opacity: 0 }}
-        whileInView={{ rotate: 30, x: 0, opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.5 }}
-        style={{ transformOrigin: "175px 90px" }}
-      >
-        <rect x="165" y="60" width="8" height="70" rx="2" fill="url(#bl-g)" transform="rotate(30 169 95)" />
-        <path d="M165 60 L173 60 L169 50 Z" fill="var(--brand-blue)" transform="rotate(30 169 95)" />
-      </motion.g>
     </svg>
   );
 }

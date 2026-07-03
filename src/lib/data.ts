@@ -25,15 +25,17 @@ import {
 } from "lucide-react";
 
 export const site = {
-  name: "Atom Foundation",
+  name: "Atom Arc Foundation",
+  legalName: "Atom Academic Research & Collaboration Foundation",
   tagline: "Building Future-Ready Communities Through Technology & Education",
   vision:
     "Empower every student and woman with future-ready technology skills, enabling sustainable careers and inclusive growth through education, AI, innovation, and community development.",
   mission:
     "To democratize access to future-ready technology education, empower women and underserved communities, and build sustainable careers through AI, software skills, and strong partnerships.",
-  email: "hello@atomfoundation.org",
-  phone: "+91 80000 00000",
-  address: "Atom Foundation, Indiranagar, Bengaluru, Karnataka 560038, India",
+  email: "info@atomfoundations.org",
+  phone: "+91 8508513222",
+  address: "No.4B, Raja Nagar, 3rd Street, Bharathi Nagar, Ganapathy, Coimbatore - 641006",
+  addressShort: "Coimbatore, Tamilnadu, India",
   founded: 2019,
   registration: "Reg. under Societies Act, 80G & 12A approved",
 };
@@ -71,7 +73,7 @@ export const programs: Program[] = [
     ],
     outcomes: [
       "Build & deploy a GenAI powered application",
-      "Earn an Atom Foundation AI certificate",
+      "Earn an Atom Arc Foundation AI certificate",
       "Career-ready portfolio with 3 projects",
     ],
   },
@@ -382,7 +384,7 @@ export const stories: Story[] = [
     category: "Placement",
     image: "priya",
     quote:
-      "Atom Foundation didn't just teach me AI — they showed me I belonged in tech. Today I build GenAI features used by thousands.",
+      "Atom Arc Foundation didn't just teach me AI — they showed me I belonged in tech. Today I build GenAI features used by thousands.",
     journey: "From a tier-3 college with no coding background to a placed AI developer in 9 months.",
     before: "Final-year student, no coding exposure, unsure about career path.",
     after: "Placed as Junior AI Developer with a 4.2 LPA package within 3 months of graduation.",
@@ -561,87 +563,13 @@ export type Milestone = {
 };
 
 export const timeline: Milestone[] = [
-  { year: "2019", title: "Atom Foundation is born", description: "Started with a single coding workshop for 30 students in Bengaluru." },
+  { year: "2019", title: "Atom Arc Foundation is born", description: "Started with a single coding workshop for 30 students in Coimbatore." },
   { year: "2020", title: "Going online during the pandemic", description: "Pivoted to digital delivery, reaching 1,200 students across 4 states." },
   { year: "2021", title: "Women Empowerment track launches", description: "First women-only cohort with 80 SHG members in rural Karnataka." },
   { year: "2022", title: "First AI Training bootcamp", description: "Launched our flagship AI track with 60 students and 3 hiring partners." },
   { year: "2023", title: "10,000 students trained", description: "Crossed 10,000 trained learners with a 65% placement rate." },
   { year: "2024", title: "CSR & government partnerships scale", description: "Signed 12 new CSR and government partnerships, expanded to 32 districts." },
   { year: "2025", title: "Future-ready communities", description: "Launching AI career assistant, LMS and scholarship portal." },
-];
-
-export type BlogPost = {
-  slug: string;
-  title: string;
-  excerpt: string;
-  category: "AI" | "Technology" | "Career" | "Education" | "Women Empowerment" | "Success Stories" | "Research";
-  author: string;
-  date: string;
-  readTime: string;
-  gradient: string;
-};
-
-export const blogPosts: BlogPost[] = [
-  {
-    slug: "generative-ai-for-students",
-    title: "Generative AI for Students: A Practical 2025 Starter Guide",
-    excerpt: "How any student can start building with generative AI — tools, prompts and first projects that actually impress recruiters.",
-    category: "AI",
-    author: "Dr. Anand Iyer",
-    date: "2025-01-12",
-    readTime: "7 min read",
-    gradient: "from-blue-500 to-purple-500",
-  },
-  {
-    slug: "career-readiness-roadmap",
-    title: "The 6-Week Career Readiness Roadmap That Gets You Placed",
-    excerpt: "A week-by-week breakdown of the exact roadmap our placement-ready graduates follow — from resume to offer letter.",
-    category: "Career",
-    author: "Neha Joshi",
-    date: "2025-01-05",
-    readTime: "9 min read",
-    gradient: "from-green-500 to-blue-500",
-  },
-  {
-    slug: "women-digital-literacy-impact",
-    title: "How Digital Literacy Is Rewriting Rural Women's Futures",
-    excerpt: "Stories and data from our women empowerment cohorts — what works, what doesn't, and the measurable impact.",
-    category: "Women Empowerment",
-    author: "Aisha Mohammed",
-    date: "2024-12-20",
-    readTime: "8 min read",
-    gradient: "from-purple-500 to-pink-500",
-  },
-  {
-    slug: "ai-bootcamp-recap",
-    title: "Inside Our Generative AI Bootcamp: 48 Hours, 60 Students, 12 Apps",
-    excerpt: "A recap of our latest AI bootcamp — the projects students built and the lessons we learned as educators.",
-    category: "Success Stories",
-    author: "Rahul Verma",
-    date: "2024-12-08",
-    readTime: "6 min read",
-    gradient: "from-blue-500 to-cyan-500",
-  },
-  {
-    slug: "future-ready-skills",
-    title: "Future-Ready Skills Every Student Needs by 2026",
-    excerpt: "The shifting skill landscape and the capabilities that will define employability over the next two years.",
-    category: "Education",
-    author: "Sneha Kulkarni",
-    date: "2024-11-28",
-    readTime: "10 min read",
-    gradient: "from-green-500 to-emerald-500",
-  },
-  {
-    slug: "csr-partnership-model",
-    title: "A CSR Partnership Model That Actually Creates Measurable Impact",
-    excerpt: "How we structure CSR collaborations for transparency, accountability and real community outcomes.",
-    category: "Technology",
-    author: "Vikram Desai",
-    date: "2024-11-10",
-    readTime: "7 min read",
-    gradient: "from-purple-500 to-blue-500",
-  },
 ];
 
 export type Testimonial = {
@@ -656,7 +584,7 @@ export const testimonials: Testimonial[] = [
   {
     name: "Dr. Sunita Rao",
     role: "Principal, Government PU College",
-    quote: "Atom Foundation's coding program transformed our students' confidence. We now have a thriving coding club run entirely by students.",
+    quote: "Atom Arc Foundation's coding program transformed our students' confidence. We now have a thriving coding club run entirely by students.",
     initials: "SR",
     color: "blue",
   },
@@ -670,7 +598,7 @@ export const testimonials: Testimonial[] = [
   {
     name: "Kavya S",
     role: "Software Engineer, CloudForge",
-    quote: "I mentor through Atom Foundation every weekend. The students' hunger to learn keeps me sharp and grounded.",
+    quote: "I mentor through Atom Arc Foundation every weekend. The students' hunger to learn keeps me sharp and grounded.",
     initials: "KS",
     color: "green",
   },
@@ -713,6 +641,6 @@ export const volunteerFaqs = [
   { q: "Do I need to be a tech expert to volunteer?", a: "Not at all. We have roles for trainers, mentors, organizers and coaches. We match your skills to where you can create the most impact." },
   { q: "How much time do I need to commit?", a: "Most roles need 2–6 hours per week. You can choose a commitment that fits your schedule, and we plan around your availability." },
   { q: "Is volunteering remote-friendly?", a: "Yes. Many of our mentoring, development and coaching roles are fully remote. Some community outreach roles are on-ground." },
-  { q: "Will I get a certificate?", a: "Yes. Active volunteers receive an Atom Foundation volunteer certificate and a letter of appreciation after each cohort cycle." },
+  { q: "Will I get a certificate?", a: "Yes. Active volunteers receive an Atom Arc Foundation volunteer certificate and a letter of appreciation after each cohort cycle." },
   { q: "Can my company volunteer as a team?", a: "Absolutely. We run structured corporate volunteering drives — reach out via the contact page and we'll design a program together." },
 ];

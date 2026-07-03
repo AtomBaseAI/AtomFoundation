@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { footerNav, socialLinks } from "@/lib/nav";
+import { site } from "@/lib/data";
 
 export function SiteFooter() {
   const [email, setEmail] = React.useState("");
@@ -48,7 +49,7 @@ export function SiteFooter() {
                 <Atom className="h-5 w-5" />
               </span>
               <span className="font-poppins text-lg font-700">
-                Atom<span className="text-gradient-brand"> Foundation</span>
+                Atom<span className="text-gradient-brand"> Arc Foundation</span>
               </span>
             </Link>
             <p className="mt-4 max-w-sm text-sm text-muted-foreground">
@@ -118,22 +119,22 @@ export function SiteFooter() {
 
         {/* Contact strip */}
         <div className="mt-12 grid gap-4 border-t border-border/60 pt-8 sm:grid-cols-3">
-          <a href="mailto:hello@atomfoundation.org" className="flex items-center gap-3 text-sm text-muted-foreground transition-colors hover:text-primary">
+          <a href={`mailto:${site.email}`} className="flex items-center gap-3 text-sm text-muted-foreground transition-colors hover:text-primary">
             <span className="grid h-9 w-9 place-items-center rounded-lg bg-brand-blue/10 text-brand-blue"><Mail className="h-4 w-4" /></span>
-            hello@atomfoundation.org
+            {site.email}
           </a>
-          <a href="tel:+918000000000" className="flex items-center gap-3 text-sm text-muted-foreground transition-colors hover:text-primary">
+          <a href={`tel:${site.phone.replace(/\s+/g, "")}`} className="flex items-center gap-3 text-sm text-muted-foreground transition-colors hover:text-primary">
             <span className="grid h-9 w-9 place-items-center rounded-lg bg-brand-purple/10 text-brand-purple"><Phone className="h-4 w-4" /></span>
-            +91 80000 00000
+            {site.phone}
           </a>
           <div className="flex items-center gap-3 text-sm text-muted-foreground">
             <span className="grid h-9 w-9 place-items-center rounded-lg bg-brand-green/10 text-brand-green"><MapPin className="h-4 w-4" /></span>
-            Bengaluru · Karnataka · India
+            {site.addressShort}
           </div>
         </div>
 
         <div className="mt-8 flex flex-col items-center justify-between gap-3 border-t border-border/60 pt-6 text-sm text-muted-foreground sm:flex-row">
-          <p>© {new Date().getFullYear()} Atom Foundation. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} {site.name}. All rights reserved.</p>
           <p className="flex items-center gap-1.5">
             Made with <Heart className="h-3.5 w-3.5 fill-red-500 text-red-500" /> for future-ready communities
           </p>

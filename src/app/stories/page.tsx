@@ -271,7 +271,7 @@ export default function StoriesPage() {
             Real journeys of <span className="text-gradient-brand">transformation</span>
           </>
         }
-        description="Behind every metric is a person whose life changed course. Meet the students, women, and mentors who make Atom Foundation what it is."
+        description="Behind every metric is a person whose life changed course. Meet the students, women, and mentors who make Atom Arc Foundation what it is."
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Stories" }]}
       >
         <div className="flex flex-wrap items-center gap-3">
