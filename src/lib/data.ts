@@ -483,7 +483,7 @@ export type TeamMember = {
 
 export const team: TeamMember[] = [
   {
-    name: "Dr. Anand Iyer",
+    name: "Dr. ABC",
     role: "Founder & President",
     bio: "Former AI research lead with 18 years in education technology and a passion for equitable access.",
     initials: "AI",
