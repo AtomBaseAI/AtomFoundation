@@ -1,0 +1,306 @@
+// AtomFoundation - PostgreSQL schema
+// All website content is stored in the database and served dynamically.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Site configuration (singleton row, id = "default")
+// ---------------------------------------------------------------------------
+model SiteSetting {
+  id            String   @id @default("default")
+  name          String
+  legalName     String
+  tagline       String
+  vision        String
+  mission       String
+  email         String
+  phone         String
+  address       String
+  addressShort  String
+  founded       Int
+  registration  String
+  updatedAt     DateTime @updatedAt
+}
+
+// ---------------------------------------------------------------------------
+// Programs (with nested modules + outcomes stored as JSON / arrays)
+// ---------------------------------------------------------------------------
+model Program {
+  id          String   @id
+  title       String
+  tagline     String
+  description String
+  icon        String // lucide icon name
+  color       String // blue | purple | green
+  duration    String
+  level       String
+  audience    String
+  modules     Json // [{ name, description, icon }]
+  outcomes    String[] // list of outcome strings
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ---------------------------------------------------------------------------
+// Impact metrics (home + impact page)
+// ---------------------------------------------------------------------------
+model ImpactMetric {
+  id          Int      @id @default(autoincrement())
+  label       String
+  value       Int
+  suffix      String   @default("")
+  icon        String
+  color       String
+  description String
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ---------------------------------------------------------------------------
+// Sustainable Development Goals
+// ---------------------------------------------------------------------------
+model Sdg {
+  number       Int      @id
+  title        String
+  color        String
+  icon         String
+  contribution String
+  highlights   String[]
+  order        Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ---------------------------------------------------------------------------
+// Events
+// ---------------------------------------------------------------------------
+model EventItem {
+  id          String   @id
+  title       String
+  type        String
+  date        DateTime
+  endDate     DateTime?
+  location    String
+  mode        String // Online | Offline | Hybrid
+  description String
+  status      String // upcoming | past
+  seats       Int?
+  registered  Int?
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ---------------------------------------------------------------------------
+// Success stories
+// ---------------------------------------------------------------------------
+model Story {
+  id       String   @id
+  name     String
+  role     String
+  category String
+  image    String
+  quote    String
+  journey  String
+  before   String
+  after    String
+  order    Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ---------------------------------------------------------------------------
+// Partners
+// ---------------------------------------------------------------------------
+model Partner {
+  id       Int      @id @default(autoincrement())
+  name     String
+  type     String
+  logoText String
+  order    Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ---------------------------------------------------------------------------
+// Team members
+// ---------------------------------------------------------------------------
+model TeamMember {
+  id       Int      @id @default(autoincrement())
+  name     String
+  role     String
+  bio      String
+  initials String
+  color    String
+  socials  Json? // [{ label, href }]
+  order    Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ---------------------------------------------------------------------------
+// Advisors
+// ---------------------------------------------------------------------------
+model Advisor {
+  id       Int      @id @default(autoincrement())
+  name     String
+  role     String
+  org      String
+  initials String
+  order    Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ---------------------------------------------------------------------------
+// Core values
+// ---------------------------------------------------------------------------
+model CoreValue {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  icon        String
+  color       String
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ---------------------------------------------------------------------------
+// Timeline milestones
+// ---------------------------------------------------------------------------
+model Milestone {
+  id          Int      @id @default(autoincrement())
+  year        String
+  title       String
+  description String
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ---------------------------------------------------------------------------
+// Testimonials
+// ---------------------------------------------------------------------------
+model Testimonial {
+  id       Int      @id @default(autoincrement())
+  name     String
+  role     String
+  quote    String
+  initials String
+  color    String
+  order    Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ---------------------------------------------------------------------------
+// Gallery items
+// ---------------------------------------------------------------------------
+model GalleryItem {
+  id       String   @id
+  title    String
+  category String
+  gradient String
+  span     Boolean  @default(false)
+  order    Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ---------------------------------------------------------------------------
+// Volunteer roles + FAQs
+// ---------------------------------------------------------------------------
+model VolunteerRole {
+  id          Int      @id @default(autoincrement())
+  title       String
+  commitment  String
+  description String
+  icon        String
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model VolunteerFaq {
+  id    Int      @id @default(autoincrement())
+  question String
+  answer   String
+  order    Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ---------------------------------------------------------------------------
+// Form submissions (written via API routes)
+// ---------------------------------------------------------------------------
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String
+  message   String
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+model VolunteerSignup {
+  id          String   @id @default(cuid())
+  name        String
+  email       String
+  phone       String
+  role        String
+  location    String?
+  skills      String?
+  availability String?
+  motivation  String?
+  createdAt   DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+model EventRegistration {
+  id        String   @id @default(cuid())
+  eventId   String
+  name      String
+  email     String
+  phone     String?
+  role      String?
+  createdAt DateTime @default(now())
+
+  @@index([eventId])
+  @@index([createdAt])
+}
+
+model NewsletterSubscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
+
+// ---------------------------------------------------------------------------
+// Page configuration — controls visibility of pages/page groups across the
+// site (navbar, footer, and direct access). Hidden pages are removed from all
+// navigation and redirect to home if accessed directly.
+// ---------------------------------------------------------------------------
+model PageConfig {
+  key       String   @id // e.g. "about", "sdgs", "impact"
+  label     String
+  route     String
+  group     String?  // parent group key (e.g. "impact" for sdgs/stories/gallery)
+  visible   Boolean  @default(true)
+  order     Int      @default(0)
+  updatedAt DateTime @updatedAt
+}
+

@@ -75,6 +75,11 @@ async function addDirectoryToArchive(
 }
 
 export async function GET() {
+  // Disable the source-code archive endpoint in production for security.
+  if (process.env.NODE_ENV === "production") {
+    return new NextResponse("Not Found", { status: 404 });
+  }
+
   try {
     await fs.access(PROJECT_ROOT);
 

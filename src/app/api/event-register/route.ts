@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { store } from "@/lib/store";
+import { db } from "@/lib/db";
+
+export const dynamic = "force-dynamic";
 
 export async function POST(req: NextRequest) {
   try {
@@ -11,13 +13,26 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
-    const entry = store.addEventRegistration({
-      eventId: String(eventId).slice(0, 60),
-      name: String(name).slice(0, 120),
-      email: String(email).slice(0, 160),
-      phone: phone ? String(phone).slice(0, 20) : null,
-      role: role ? String(role).slice(0, 60) : null,
+    const entry = await db.eventRegistration.create({
+      data: {
+        eventId: String(eventId).slice(0, 60),
+        name: String(name).slice(0, 120),
+        email: String(email).slice(0, 160),
+        phone: phone ? String(phone).slice(0, 20) : null,
+        role: role ? String(role).slice(0, 60) : null,
+      },
     });
+
+    // Increment the event's registered count if it has a seats capacity.
+    try {
+      await db.eventItem.updateMany({
+        where: { id: String(eventId).slice(0, 60), registered: { not: null } },
+        data: { registered: { increment: 1 } },
+      });
+    } catch {
+      // non-critical
+    }
+
     return NextResponse.json({ ok: true, id: entry.id });
   } catch (err) {
     console.error("Event registration error:", err);

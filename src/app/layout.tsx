@@ -1,11 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
-import { Toaster as SonnerToaster } from "@/components/ui/sonner";
-import { ThemeProvider } from "@/components/site/theme-provider";
-import { SiteNavbar } from "@/components/site/navbar";
-import { SiteFooter } from "@/components/site/footer";
-import { ChatbotWidget } from "@/components/site/chatbot-widget";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -62,20 +57,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${poppins.variable} font-inter antialiased bg-background text-foreground`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <div className="relative flex min-h-screen flex-col">
-            <SiteNavbar />
-            <main className="flex-1">{children}</main>
-            <SiteFooter />
-          </div>
-          <ChatbotWidget />
-          <SonnerToaster richColors position="top-center" />
-        </ThemeProvider>
+        {children}
       </body>
     </html>
   );

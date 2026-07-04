@@ -26,14 +26,18 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { siteNav } from "@/lib/nav";
+import { siteNav, type NavItem } from "@/lib/nav";
+import { usePageVisibility } from "@/hooks/use-page-visibility";
 
 export function SiteNavbar() {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
+  const { isVisible, filterNav } = usePageVisibility();
   const [mounted, setMounted] = React.useState(false);
   const [scrolled, setScrolled] = React.useState(false);
   const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const navItems = filterNav(siteNav);
 
   React.useEffect(() => setMounted(true), []);
 
@@ -84,7 +88,7 @@ export function SiteNavbar() {
         {/* Desktop nav */}
         <NavigationMenu className="hidden lg:flex">
           <NavigationMenuList>
-            {siteNav.map((item) => (
+            {navItems.map((item) => (
               <NavigationMenuItem key={item.href}>
                 {item.children ? (
                   <>
@@ -155,11 +159,13 @@ export function SiteNavbar() {
               <Moon className="h-5 w-5" />
             )}
           </Button>
-          <Button asChild size="sm" className="hidden sm:inline-flex bg-gradient-brand">
-            <Link href="/volunteer">
-              <Users className="mr-1.5 h-4 w-4" /> Get Involved
-            </Link>
-          </Button>
+          {isVisible("volunteer") && (
+            <Button asChild size="sm" className="hidden sm:inline-flex bg-gradient-brand">
+              <Link href="/volunteer">
+                <Users className="mr-1.5 h-4 w-4" /> Get Involved
+              </Link>
+            </Button>
+          )}
 
           {/* Mobile */}
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
@@ -178,14 +184,16 @@ export function SiteNavbar() {
                 </SheetTitle>
               </SheetHeader>
               <div className="px-3 pb-28 pt-2">
-                <MobileNavGroup pathname={pathname} onNavigate={() => setMobileOpen(false)} />
-                <div className="mt-4 grid gap-2 px-2">
-                  <Button asChild className="bg-gradient-brand" onClick={() => setMobileOpen(false)}>
-                    <Link href="/volunteer">
-                      <Users className="mr-2 h-4 w-4" /> Become a Volunteer
-                    </Link>
-                  </Button>
-                </div>
+                <MobileNavGroup pathname={pathname} navItems={navItems} onNavigate={() => setMobileOpen(false)} />
+                {isVisible("volunteer") && (
+                  <div className="mt-4 grid gap-2 px-2">
+                    <Button asChild className="bg-gradient-brand" onClick={() => setMobileOpen(false)}>
+                      <Link href="/volunteer">
+                        <Users className="mr-2 h-4 w-4" /> Become a Volunteer
+                      </Link>
+                    </Button>
+                  </div>
+                )}
               </div>
             </SheetContent>
           </Sheet>
@@ -197,9 +205,11 @@ export function SiteNavbar() {
 
 function MobileNavGroup({
   pathname,
+  navItems,
   onNavigate,
 }: {
   pathname: string;
+  navItems: NavItem[];
   onNavigate: () => void;
 }) {
   const [openSections, setOpenSections] = React.useState<Record<string, boolean>>({});
@@ -208,7 +218,7 @@ function MobileNavGroup({
 
   return (
     <nav className="flex flex-col">
-      {siteNav.map((item) => {
+      {navItems.map((item) => {
         const hasChildren = !!item.children?.length;
         const open = openSections[item.href];
         return (
