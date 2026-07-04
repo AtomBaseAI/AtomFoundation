@@ -22,6 +22,7 @@ import {
   CheckCircle2,
   Sparkles,
   PartyPopper,
+  Lock,
 } from "lucide-react";
 import { PageHero } from "@/components/site/page-hero";
 import { SectionHeading } from "@/components/site/section-heading";
@@ -52,6 +53,7 @@ import { cn } from "@/lib/utils";
 import { EventIllustration } from "@/components/site/svg-illustrations";
 import { type EventItem } from "@/lib/data";
 import { useContent, type ContentData } from "@/hooks/use-content";
+import { usePageVisibility } from "@/hooks/use-page-visibility";
 
 type EventType = EventItem["type"];
 
@@ -85,6 +87,7 @@ function DateBadge({ date, endDate }: { date: string; endDate?: string | null })
 }
 
 function EventCard({ event, onRegister }: { event: EventItem; onRegister: (e: EventItem) => void }) {
+  const { isFormVisible } = usePageVisibility();
   const tc = typeConfig[event.type];
   const mc = modeConfig[event.mode];
   const TypeIcon = tc.icon;
@@ -152,12 +155,18 @@ function EventCard({ event, onRegister }: { event: EventItem; onRegister: (e: Ev
 
           <div className="mt-auto pt-5">
             {isUpcoming ? (
-              <Button
-                className="w-full bg-gradient-brand text-white hover:opacity-90"
-                onClick={() => onRegister(event)}
-              >
-                Register now <ArrowRight className="h-4 w-4" />
-              </Button>
+              isFormVisible("events") ? (
+                <Button
+                  className="w-full bg-gradient-brand text-white hover:opacity-90"
+                  onClick={() => onRegister(event)}
+                >
+                  Register now <ArrowRight className="h-4 w-4" />
+                </Button>
+              ) : (
+                <p className="rounded-lg border border-dashed border-border/60 bg-muted/30 px-3 py-2.5 text-center text-xs text-muted-foreground">
+                  Registration is currently disabled for this event.
+                </p>
+              )
             ) : (
               <Button asChild variant="outline" className="w-full">
                 <Link href="/gallery">
@@ -181,6 +190,7 @@ function RegistrationDialog({
   open: boolean;
   onOpenChange: (v: boolean) => void;
 }) {
+  const { isFormVisible } = usePageVisibility();
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [phone, setPhone] = React.useState("");
@@ -261,6 +271,18 @@ function RegistrationDialog({
             <Button className="mt-2 bg-gradient-brand text-white" onClick={() => onOpenChange(false)}>
               Done
             </Button>
+          </div>
+        ) : !isFormVisible("events") ? (
+          <div className="flex flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-border/60 bg-muted/30 px-6 py-8 text-center">
+            <div className="grid h-11 w-11 place-items-center rounded-full bg-muted">
+              <Lock className="h-5 w-5 text-muted-foreground" />
+            </div>
+            <div>
+              <p className="font-poppins text-base font-700">Registration disabled</p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Event registration is currently turned off. Please check back later.
+              </p>
+            </div>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-3">

@@ -20,6 +20,7 @@ import {
   HelpCircle,
   CheckCircle2,
   Building2,
+  Lock,
 } from "lucide-react";
 
 import { PageHero } from "@/components/site/page-hero";
@@ -27,6 +28,7 @@ import { SectionHeading } from "@/components/site/section-heading";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/reveal";
 import { IndiaReachMap } from "@/components/site/svg-illustrations";
 import { useContent, type ContentData } from "@/hooks/use-content";
+import { usePageVisibility } from "@/hooks/use-page-visibility";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -98,6 +100,7 @@ const colorMap = {
 };
 
 function ContactForm() {
+  const { isFormVisible } = usePageVisibility();
   const [loading, setLoading] = React.useState(false);
   const [form, setForm] = React.useState({
     name: "",
@@ -154,6 +157,25 @@ function ContactForm() {
     } finally {
       setLoading(false);
     }
+  }
+
+  if (!isFormVisible("contact")) {
+    return (
+      <Card className="overflow-hidden border-border/70 shadow-soft py-0">
+        <CardContent className="flex flex-col items-center justify-center gap-3 p-12 text-center">
+          <div className="grid h-12 w-12 place-items-center rounded-full bg-muted">
+            <Lock className="h-5 w-5 text-muted-foreground" />
+          </div>
+          <div>
+            <p className="font-poppins text-lg font-700">Form temporarily disabled</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              The contact form is currently turned off. Please reach us directly
+              via email or phone.
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+    );
   }
 
   return (

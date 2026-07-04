@@ -23,6 +23,7 @@ import {
   CheckCircle2,
   Heart,
   type LucideIcon,
+  Lock,
 } from "lucide-react";
 
 import { PageHero } from "@/components/site/page-hero";
@@ -63,6 +64,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 
 import { useContent, type ContentData } from "@/hooks/use-content";
+import { usePageVisibility } from "@/hooks/use-page-visibility";
 import { Icon } from "@/components/site/icon";
 
 /* -------------------------------------------------------------------------- */
@@ -153,6 +155,7 @@ const availabilityOptions = [
 /* -------------------------------------------------------------------------- */
 
 export default function VolunteerPage() {
+  const { isFormVisible } = usePageVisibility();
   const [form, setForm] = React.useState({
     name: "",
     email: "",
@@ -511,6 +514,7 @@ export default function VolunteerPage() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
+                  {isFormVisible("volunteer") ? (
                   <form onSubmit={handleSubmit} className="space-y-5">
                     <div className="grid gap-5 sm:grid-cols-2">
                       <div className="space-y-1.5">
@@ -687,6 +691,19 @@ export default function VolunteerPage() {
                       </Button>
                     </div>
                   </form>
+                  ) : (
+                    <div className="flex flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-border/60 bg-muted/30 px-6 py-10 text-center">
+                      <div className="grid h-12 w-12 place-items-center rounded-full bg-muted">
+                        <Lock className="h-5 w-5 text-muted-foreground" />
+                      </div>
+                      <div>
+                        <p className="font-poppins text-lg font-700">Form temporarily disabled</p>
+                        <p className="mt-1 text-sm text-muted-foreground">
+                          Volunteer applications are currently turned off. Please check back later.
+                        </p>
+                      </div>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </Reveal>

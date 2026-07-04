@@ -23,6 +23,10 @@ export type PageRegistryEntry = {
   isGroupParent?: boolean;
   /** Whether this page can be hidden from the CMS (home is always visible). */
   manageable: boolean;
+  /** Whether this page contains a form that can be toggled. */
+  hasForm?: boolean;
+  /** Human-readable label(s) for the form(s) on this page. */
+  formLabels?: string[];
   /** Sort order for CMS display. */
   order: number;
 };
@@ -42,10 +46,42 @@ export const pageRegistry: PageRegistryEntry[] = [
   { key: "sdgs", label: "SDGs", route: "/sdgs", group: "impact", manageable: true, order: 4 },
   { key: "stories", label: "Success Stories", route: "/stories", group: "impact", manageable: true, order: 5 },
   { key: "gallery", label: "Gallery", route: "/gallery", group: "impact", manageable: true, order: 6 },
-  { key: "events", label: "Events", route: "/events", manageable: true, order: 7 },
-  { key: "volunteer", label: "Volunteer", route: "/volunteer", manageable: true, order: 8 },
-  { key: "partners", label: "Partners", route: "/partners", manageable: true, order: 9 },
-  { key: "contact", label: "Contact", route: "/contact", manageable: true, order: 10 },
+  {
+    key: "events",
+    label: "Events",
+    route: "/events",
+    manageable: true,
+    hasForm: true,
+    formLabels: ["Event Registration"],
+    order: 7,
+  },
+  {
+    key: "volunteer",
+    label: "Volunteer",
+    route: "/volunteer",
+    manageable: true,
+    hasForm: true,
+    formLabels: ["Volunteer Signup"],
+    order: 8,
+  },
+  {
+    key: "partners",
+    label: "Partners",
+    route: "/partners",
+    manageable: true,
+    hasForm: true,
+    formLabels: ["Partnership Inquiry"],
+    order: 9,
+  },
+  {
+    key: "contact",
+    label: "Contact",
+    route: "/contact",
+    manageable: true,
+    hasForm: true,
+    formLabels: ["Contact Form"],
+    order: 10,
+  },
 ];
 
 /** Returns the page key for a given route path (ignoring hash/query). */

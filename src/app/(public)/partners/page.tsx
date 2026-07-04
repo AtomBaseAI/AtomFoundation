@@ -18,6 +18,7 @@ import {
   Quote,
   CheckCircle2,
   Loader2,
+  Lock,
 } from "lucide-react";
 
 import { PageHero } from "@/components/site/page-hero";
@@ -27,6 +28,7 @@ import { PartnershipIllustration } from "@/components/site/svg-illustrations";
 import { PartnerLogo } from "@/components/site/svg-logos";
 import { type Partner, type Testimonial } from "@/lib/data";
 import { useContent, type ContentData } from "@/hooks/use-content";
+import { usePageVisibility } from "@/hooks/use-page-visibility";
 import { Icon } from "@/components/site/icon";
 import { Button } from "@/components/ui/button";
 import {
@@ -354,6 +356,7 @@ function TestimonialCard({
 }
 
 function PartnershipForm() {
+  const { isFormVisible } = usePageVisibility();
   const [loading, setLoading] = React.useState(false);
   const [form, setForm] = React.useState({
     organization: "",
@@ -416,6 +419,22 @@ function PartnershipForm() {
     } finally {
       setLoading(false);
     }
+  }
+
+  if (!isFormVisible("partners")) {
+    return (
+      <div className="flex flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-border/60 bg-muted/30 p-8 text-center">
+        <div className="grid h-12 w-12 place-items-center rounded-full bg-muted">
+          <Lock className="h-5 w-5 text-muted-foreground" />
+        </div>
+        <div>
+          <p className="font-poppins text-lg font-700">Form temporarily disabled</p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            This form is currently turned off. Please check back later.
+          </p>
+        </div>
+      </div>
+    );
   }
 
   return (

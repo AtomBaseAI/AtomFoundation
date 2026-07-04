@@ -6,10 +6,10 @@ export const dynamic = "force-dynamic";
 
 /**
  * PATCH /api/cms/page-config
- * Body: { key: string, visible: boolean }
+ * Body: { key: string, visible?: boolean, formsVisible?: boolean }
  *
- * Toggles the visibility of a single page. When a group parent is hidden,
- * its children are automatically hidden too (cascade).
+ * Toggles the visibility of a single page and/or its forms. When a group
+ * parent is hidden, its children are automatically hidden too (cascade).
  */
 export async function PATCH(req: NextRequest) {
   const session = await getSessionFromRequest(req);
@@ -19,11 +19,18 @@ export async function PATCH(req: NextRequest) {
 
   try {
     const body = await req.json().catch(() => ({}));
-    const { key, visible } = body;
+    const { key, visible, formsVisible } = body;
 
-    if (typeof key !== "string" || typeof visible !== "boolean") {
+    if (typeof key !== "string") {
       return NextResponse.json(
-        { error: "Expected { key: string, visible: boolean }" },
+        { error: "Expected { key: string, visible?: boolean, formsVisible?: boolean }" },
+        { status: 400 }
+      );
+    }
+
+    if (visible === undefined && formsVisible === undefined) {
+      return NextResponse.json(
+        { error: "Provide at least one of: visible, formsVisible" },
         { status: 400 }
       );
     }
@@ -33,20 +40,23 @@ export async function PATCH(req: NextRequest) {
       return NextResponse.json({ error: "Page not found" }, { status: 404 });
     }
 
+    // Build update data (only update fields that are provided)
+    const updateData: { visible?: boolean; formsVisible?: boolean } = {};
+    if (typeof visible === "boolean") updateData.visible = visible;
+    if (typeof formsVisible === "boolean") updateData.formsVisible = formsVisible;
+
     // Update the page itself
     await db.pageConfig.update({
       where: { key },
-      data: { visible },
+      data: updateData,
     });
 
     // Cascade: if this is a group parent being hidden, hide all children too.
-    // If it's being shown, leave children as-is (they may still be individually hidden).
-    if (existing.group === null) {
-      // Check if any pages have this key as their group
+    if (typeof visible === "boolean" && existing.group === null && !visible) {
       const children = await db.pageConfig.findMany({
         where: { group: key },
       });
-      if (children.length > 0 && !visible) {
+      if (children.length > 0) {
         await db.pageConfig.updateMany({
           where: { group: key },
           data: { visible: false },
@@ -83,6 +93,7 @@ export async function GET(req: NextRequest) {
       route: r.route,
       group: r.group,
       visible: r.visible,
+      formsVisible: r.formsVisible,
     })),
   });
 }

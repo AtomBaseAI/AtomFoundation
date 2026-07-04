@@ -295,12 +295,13 @@ model NewsletterSubscriber {
 // navigation and redirect to home if accessed directly.
 // ---------------------------------------------------------------------------
 model PageConfig {
-  key       String   @id // e.g. "about", "sdgs", "impact"
-  label     String
-  route     String
-  group     String?  // parent group key (e.g. "impact" for sdgs/stories/gallery)
-  visible   Boolean  @default(true)
-  order     Int      @default(0)
-  updatedAt DateTime @updatedAt
+  key          String   @id // e.g. "about", "sdgs", "impact"
+  label        String
+  route        String
+  group        String?  // parent group key (e.g. "impact" for sdgs/stories/gallery)
+  visible      Boolean  @default(true)
+  formsVisible Boolean  @default(true) // controls visibility of forms on this page
+  order        Int      @default(0)
+  updatedAt    DateTime @updatedAt
 }
 

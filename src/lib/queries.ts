@@ -334,6 +334,7 @@ export type PageConfigItem = {
   route: string;
   group: string | null;
   visible: boolean;
+  formsVisible: boolean;
 };
 
 export async function getPageConfig(): Promise<PageConfigItem[]> {
@@ -344,6 +345,7 @@ export async function getPageConfig(): Promise<PageConfigItem[]> {
     route: r.route,
     group: r.group,
     visible: r.visible,
+    formsVisible: r.formsVisible,
   }));
 }
 
